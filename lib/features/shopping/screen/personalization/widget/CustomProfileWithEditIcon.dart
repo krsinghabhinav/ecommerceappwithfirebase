@@ -39,13 +39,15 @@ class _CustomProfileWithEditIconState extends State<CustomProfileWithEditIcon> {
           // Example: You can add background if needed
           Positioned(
             bottom: -60, // ⬅️ Profile image will appear below container
-            child: CustomCircularImage(
-              isNetworkImage: true,
-              borderColor: Colors.blue,
-              borderWidth: 2,
-              image: userController.user.value.profilePicture.toString(),
-              height: 120,
-              width: 120,
+            child: Obx(
+              () => CustomCircularImage(
+                isNetworkImage: true,
+                borderColor: Colors.blue,
+                borderWidth: 2,
+                image: userController.user.value.profilePicture.toString(),
+                height: 120,
+                width: 120,
+              ),
             ),
           ),
           Positioned(

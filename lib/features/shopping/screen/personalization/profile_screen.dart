@@ -70,11 +70,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // ✅ Positioned circular profile image
               Positioned(
                 bottom: -60, // Pulls the image down outside the header
-                child: CustomCircularImage(
-                  isNetworkImage: true,
-                  image: userController.user.value.profilePicture.toString(),
-                  height: 120,
-                  width: 120,
+                child: Obx(
+                  () => CustomCircularImage(
+                    isNetworkImage: true,
+                    image: userController.user.value.profilePicture.toString(),
+                    height: 120,
+                    width: 120,
+                  ),
                 ),
               ),
             ],

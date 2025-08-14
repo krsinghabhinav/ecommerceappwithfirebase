@@ -3,6 +3,7 @@ import 'package:ecommerceappwithfirebase/utils/themes/custome_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'depedencyinjectcongtroller/controllerinitialize.dart';
 import 'splash_screen/splash_screen.dart';
 
 class MyApp extends StatelessWidget {
@@ -16,7 +17,8 @@ class MyApp extends StatelessWidget {
       theme: CustomeTheme.lightTheme,
       darkTheme: CustomeTheme.darkTheme,
       themeMode: ThemeMode.system,
-      
+      initialBinding: GlobalBindings(),
+
       home: SplashScreen(),
     );
   }

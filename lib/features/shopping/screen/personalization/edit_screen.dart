@@ -61,7 +61,12 @@ class _EditScreenState extends State<EditScreen> {
               () => UserDetailsRow(
                 title: "Name",
                 subtitle: userController.user.value.fullName,
-                icon: Icon(Iconsax.arrow_right_3),
+                icon: IconButton(
+                  onPressed: () {
+                    Get.to(ChangeUsernameScreeen());
+                  },
+                  icon: Icon(Iconsax.arrow_right_3),
+                ),
               ),
             ),
             Obx(
@@ -70,7 +75,10 @@ class _EditScreenState extends State<EditScreen> {
                 subtitle:
                     userController.user.value.username!.toLowerCase() ??
                     " Not Available",
-                icon: Icon(Iconsax.arrow_right_3),
+                icon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Iconsax.arrow_right_3),
+                ),
               ),
             ),
             Divider(),
@@ -82,32 +90,43 @@ class _EditScreenState extends State<EditScreen> {
               () => UserDetailsRow(
                 title: "User ID",
                 subtitle: userController.user.value.id.toString(),
-                icon: Icon(Iconsax.copy),
+                icon: IconButton(onPressed: () {}, icon: Icon(Iconsax.copy)),
               ),
             ),
             Obx(
               () => UserDetailsRow(
                 title: "Email",
                 subtitle: userController.user.value.email ?? "Not Available",
-                icon: Icon(Iconsax.arrow_right_3),
+                icon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Iconsax.arrow_right_3),
+                ),
               ),
             ),
             Obx(
               () => UserDetailsRow(
                 title: "Phone No",
                 subtitle: "+91 ${userController.user.value.phoneNumber}",
-                icon: Icon(Iconsax.arrow_right_3),
+                icon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Iconsax.arrow_right_3),
+                ),
               ),
             ),
             UserDetailsRow(
               title: "Gender",
               subtitle: "Male",
-              icon: Icon(Iconsax.arrow_right_3),
+              icon: IconButton(
+                onPressed: () {},
+                icon: Icon(Iconsax.arrow_right_3),
+              ),
             ),
             Divider(),
 
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                userController.deleteAccountWarningPopup();
+              },
               child: Utils.customText(
                 "Close Account",
                 color: CustomeColors.error,

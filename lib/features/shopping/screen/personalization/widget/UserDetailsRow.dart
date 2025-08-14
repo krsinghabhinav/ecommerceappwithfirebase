@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -10,16 +9,17 @@ class UserDetailsRow extends StatelessWidget {
     required this.title,
     required this.subtitle,
     this.icon,
+    this.onPressed,
   });
 
   final String title;
   final String subtitle;
-  final Icon? icon;
-
+  final IconButton? icon;
+  final VoidCallback? onPressed;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -34,7 +34,15 @@ class UserDetailsRow extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          Expanded(flex: 1, child: icon ?? const Icon(Iconsax.arrow_right_3)),
+          Expanded(
+            flex: 1,
+            child:
+                icon ??
+                IconButton(
+                  onPressed: onPressed,
+                  icon: Icon(Iconsax.arrow_right_3),
+                ),
+          ),
         ],
       ),
     );

@@ -52,10 +52,10 @@ class LoginController extends GetxController {
       final isConnected = await Get.put(NetworkManager()).isConnected();
       if (!isConnected) {
         CustomFullScreenLoader.stopLoading();
+        
         CustomSnackBarHelpers.warningSnackBar(title: "No Internet Connection");
         return null;
       }
-
       if (rememberMe.value) {
         localStorage.write('remeber_email', email);
         localStorage.write('remember_password', password);
@@ -65,7 +65,6 @@ class LoginController extends GetxController {
         email: email,
         password: password,
       );
-
       CustomSnackBarHelpers.successSnackBar(
         title: "Login Successful",
         message: "Welcome back! You are now logged in.",

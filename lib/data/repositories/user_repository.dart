@@ -82,4 +82,72 @@ class UserRepository extends GetxController {
       rethrow;
     }
   }
+
+  //read
+  Future<void> updateUserDetails(Map<String, Object> map) async {
+    try {
+      final user = authRepoController.currentUser;
+      if (user == null) {
+        Utils.showToast("User not logged in, cannot update.");
+        return;
+      }
+
+      await _db
+          .collection(DatabaseKey.userCollection)
+          .doc(user.uid)
+          .update(map);
+        Utils.showToast(" User details updated");
+    } on FirebaseAuthException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast(message);
+      rethrow;
+    } on FirebaseException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast("Firebase Error: $message");
+      rethrow;
+    } on PlatformException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast("Platform Error: $message");
+      rethrow;
+    } on FormatException {
+      Utils.showToast("Invalid data format.");
+      rethrow;
+    } catch (e) {
+      Utils.showToast("An unexpected error occurred: ${e.toString()}");
+      rethrow;
+    }
+  }
+
+  // remove user details
+
+  Future<void> removeUserRecord(String userId) async {
+    try {
+      final user = authRepoController.currentUser;
+      if (user == null) {
+        Utils.showToast("not remove");
+        return;
+      }
+
+      await _db.collection(DatabaseKey.userCollection).doc(userId).delete();
+      Utils.showToast(" User record removed");
+    } on FirebaseAuthException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast(message);
+      rethrow;
+    } on FirebaseException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast("Firebase Error: $message");
+      rethrow;
+    } on PlatformException catch (e) {
+      final message = CustomFirebaseAuthException(e.code).message;
+      Utils.showToast("Platform Error: $message");
+      rethrow;
+    } on FormatException {
+      Utils.showToast("Invalid data format.");
+      rethrow;
+    } catch (e) {
+      Utils.showToast("An unexpected error occurred: ${e.toString()}");
+      rethrow;
+    }
+  }
 }

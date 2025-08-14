@@ -10,11 +10,18 @@ import '../../shopping/screen/personalization/controller/user_controller.dart';
 
 class GoogleAuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  AuthenticationsRepoController authenticationsRepoController = Get.put(
-    AuthenticationsRepoController(),
-  );
-  UserController userController = Get.put(UserController());
+  late AuthenticationsRepoController authRepoController;
+  late UserController userController;
+
   var isSignedIn = false.obs;
+  @override
+  void onInit() {
+    super.onInit();
+    // Sirf find karo; put kabhi nahi
+    authRepoController = Get.find<AuthenticationsRepoController>();
+    userController = Get.find<UserController>();
+  }
+
   Future<UserCredential?> signInWithGoogle() async {
     try {
       isSignedIn.value = true;
@@ -44,7 +51,7 @@ class GoogleAuthController extends GetxController {
 
       Utils.showToast("Signed in successfully");
       await userController.saveUserRecored(userCredential);
-      authenticationsRepoController.screenRedirect();
+      authRepoController.screenRedirect();
 
       return userCredential;
     } catch (e) {

@@ -24,7 +24,7 @@ class AuthenticationsRepoController extends GetxController {
         Get.offAll(() => NavigationMenubar());
       } else {
         Get.offAll(() => VerityEamilAddress());
-      }
+      } 
     } else {
       if (isFirstTime == true) {
         Get.offAll(() => OnboardingScreen());
@@ -33,4 +33,6 @@ class AuthenticationsRepoController extends GetxController {
       }
     }
   }
+
+  
 }
