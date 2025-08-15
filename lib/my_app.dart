@@ -1,4 +1,5 @@
 import 'package:ecommerceappwithfirebase/features/authentication/auth%20screen/onboarding/onboarding_screen.dart';
+import 'package:ecommerceappwithfirebase/routes/routes.dart';
 import 'package:ecommerceappwithfirebase/utils/themes/custome_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       darkTheme: CustomeTheme.darkTheme,
       themeMode: ThemeMode.system,
       initialBinding: GlobalBindings(),
-
+      getPages: CustomRoutesApp.screens,
       home: SplashScreen(),
     );
   }

@@ -11,8 +11,8 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/constants/custom_images_path.dart';
 
-import '../../controller/verify_eamil_controller.dart';
-import '../../controller/signup_controller.dart';
+import '../../../../controller/verify_eamil_controller.dart';
+import '../../../../controller/signup_controller.dart';
 
 class NewSingupScreen extends StatefulWidget {
   const NewSingupScreen({super.key});

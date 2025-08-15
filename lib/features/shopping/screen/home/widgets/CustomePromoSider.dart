@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../utils/comman/custome_rounded_image.dart';
-import '../../../controller/home_controller.dart';
+import '../../../../../controller/home_controller.dart';
 
 class CustomePromoSider extends StatelessWidget {
   CustomePromoSider({super.key, required this.banner});

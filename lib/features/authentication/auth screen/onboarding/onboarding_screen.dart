@@ -1,4 +1,4 @@
-import 'package:ecommerceappwithfirebase/features/authentication/controller/onboarding_controller.dart';
+import 'package:ecommerceappwithfirebase/controller/onboarding_controller.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_colorsd.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_images_path.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_text.dart';

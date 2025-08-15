@@ -1,5 +1,5 @@
 import 'package:ecommerceappwithfirebase/features/authentication/auth%20screen/login/login_screen.dart';
-import 'package:ecommerceappwithfirebase/features/authentication/model/user_model.dart';
+import 'package:ecommerceappwithfirebase/model/user_model.dart';
 import 'package:ecommerceappwithfirebase/features/shopping/screen/personalization/re_authenticate_user_form.dart';
 import 'package:ecommerceappwithfirebase/utils/popups/snackbar_helpers.dart';
 import 'package:ecommerceappwithfirebase/utils/utils.dart';
@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../../../data/repositories/authentications_repo.dart';
-import '../../../../../data/repositories/user_repository.dart';
-import '../../../../../utils/helpers/validators/validation.dart';
-import '../../../../authentication/controller/forgetpassword_controller.dart';
-import '../../../../authentication/controller/google_auth_controller.dart';
-import '../../../../authentication/controller/logout_controller.dart';
+import '../data/repositories/authentications_repo.dart';
+import '../data/repositories/user_repository.dart';
+import '../utils/helpers/validators/validation.dart';
+import 'forgetpassword_controller.dart';
+import 'google_auth_controller.dart';
+import 'logout_controller.dart';
 
 class UserController extends GetxController {
   Rx<UserModel> user = UserModel.empty().obs;

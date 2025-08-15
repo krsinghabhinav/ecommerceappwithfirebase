@@ -2,11 +2,11 @@
 import 'package:get/get.dart';
 import '../data/repositories/authentications_repo.dart';
 import '../data/repositories/user_repository.dart';
-import '../features/authentication/controller/forgetpassword_controller.dart';
-import '../features/authentication/controller/google_auth_controller.dart';
-import '../features/authentication/controller/logout_controller.dart';
-import '../features/authentication/controller/signup_controller.dart';
-import '../features/shopping/screen/personalization/controller/user_controller.dart';
+import '../controller/forgetpassword_controller.dart';
+import '../controller/google_auth_controller.dart';
+import '../controller/logout_controller.dart';
+import '../controller/signup_controller.dart';
+import '../controller/user_controller.dart';
 
 class GlobalBindings extends Bindings {
   @override

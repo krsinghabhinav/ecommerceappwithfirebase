@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/common/key/database_key.dart';
-import 'package:ecommerceappwithfirebase/features/authentication/model/user_model.dart';
+import 'package:ecommerceappwithfirebase/model/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';

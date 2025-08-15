@@ -7,7 +7,7 @@ import '../../../../utils/constants/custom_colorsd.dart';
 import '../../../../utils/constants/custome_sizes.dart';
 import '../../../../utils/utils.dart';
 import '../../../sub_categories/sub_categories_screen.dart';
-import '../personalization/controller/user_controller.dart';
+import '../../../../controller/user_controller.dart';
 import 'widgets/CustomePromoSider.dart';
 import 'widgets/home_screen_appbar.dart';
 import 'widgets/primaryheadercontainer.dart';
@@ -82,13 +82,7 @@ class _HomescreenState extends State<Homescreen> {
                       const SizedBox(height: 10),
                       Padding(
                         padding: EdgeInsets.only(left: 15.0),
-                        child: CustomHorizontalCirculerCategoryCart(
-                          title: "Fashion",
-                          imageUrl: "assets/icons/categories/sports.png",
-                          onTap: () {
-                            Get.to(() => SubCategoriesScreen());
-                          },
-                        ),
+                        child: CustomHorizontalCirculerCategoryCart(),
                       ),
                     ],
                   ),

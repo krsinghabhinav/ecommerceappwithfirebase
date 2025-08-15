@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../../../utils/helpers/custom_device_helper.dart';
-import '../../../controller/onboarding_controller.dart';
+import '../../../../../controller/onboarding_controller.dart';
 
 class onBoardingDotNavigation extends StatelessWidget {
   const onBoardingDotNavigation({super.key});

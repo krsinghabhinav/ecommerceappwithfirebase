@@ -1,4 +1,4 @@
-import 'package:ecommerceappwithfirebase/features/authentication/controller/forgetpassword_controller.dart';
+import 'package:ecommerceappwithfirebase/controller/forgetpassword_controller.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_colorsd.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_text.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custome_sizes.dart';

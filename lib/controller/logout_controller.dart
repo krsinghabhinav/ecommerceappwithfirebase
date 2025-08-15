@@ -4,12 +4,12 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../common/key/database_key.dart';
-import '../../../data/repositories/authentications_repo.dart';
-import '../../../data/repositories/user_repository.dart';
-import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
-import '../../../utils/utils.dart';
-import '../auth screen/login/login_screen.dart';
+import '../common/key/database_key.dart';
+import '../data/repositories/authentications_repo.dart';
+import '../data/repositories/user_repository.dart';
+import '../utils/helpers/exceptions/firebase_auth_exceptions.dart';
+import '../utils/utils.dart';
+import '../features/authentication/auth screen/login/login_screen.dart';
 
 class LogoutController extends GetxController {
   var loading = false.obs;

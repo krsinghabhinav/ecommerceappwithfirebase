@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/common/key/database_key.dart';
-import 'package:ecommerceappwithfirebase/features/shopping/model/category_model.dart';
+import 'package:ecommerceappwithfirebase/model/category_model.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/custom_helper_function.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -19,8 +19,9 @@ class CategoryRespositry extends GetxController {
   static CategoryRespositry get instance => Get.find();
   final storage = FirebaseStorage.instance;
   final _db = FirebaseFirestore.instance;
-  CloudinaryServices cloudinaryService = Get.put(CloudinaryServices());
 
+  CloudinaryServices cloudinaryService = Get.put(CloudinaryServices());
+  var isLoading = false.obs;
   // upload image using cloudinary database only upload image url to firebase to link with firebase document
   //   Future<void> uploadCategories(List<CategoryModel> categories) async {
   //     try {
@@ -42,37 +43,16 @@ class CategoryRespositry extends GetxController {
   //         Utils.showToast(" Category uploaded");
   //         print("categories name==> ${category.name}");
   //       }
-  //     } on FirebaseException catch (e) {
-  //       Utils.showToast(CustomFirebaseAuthException(e.code).message);
-  //     } on PlatformException catch (e) {
-  //       Utils.showToast(CustomFirebaseAuthException(e.code).message);
-  //     } on FormatException {
-  //       Utils.showToast("Invalid format");
-  //     } catch (e) {
-  //       Utils.showToast("Something went wrong. Please try again.");
-  //     }
+  // } on FirebaseException catch (e) {
+  //   Utils.showToast(CustomFirebaseAuthException(e.code).message);
+  // } on PlatformException catch (e) {
+  //   Utils.showToast(CustomFirebaseAuthException(e.code).message);
+  // } on FormatException {
+  //   Utils.showToast("Invalid format");
+  // } catch (e) {
+  //   Utils.showToast("Something went wrong. Please try again.");
+  // }
   //   }
-
-  /// Upload file to Firebase Storage
-  Future<String?> uploadFileToFirebaseStorageWithCategories(
-    String filePath,
-    String folder,
-    String extension,
-  ) async {
-    try {
-      var uuid = const Uuid();
-      String uniqueFileName = "${uuid.v4()}.$extension";
-      final path = "$folder/$uniqueFileName";
-      final file = File(filePath);
-      final ref = storage.ref().child(path);
-
-      await ref.putFile(file);
-      return await ref.getDownloadURL();
-    } catch (e) {
-      Utils.showToast("❌ Error uploading file: $e");
-      return null;
-    }
-  }
 
   /// Upload categories with image to Firebase Firestore and image link to show on the firebasecloud
   Future<void> uploadCategories(List<CategoryModel> categories) async {
@@ -80,12 +60,12 @@ class CategoryRespositry extends GetxController {
       for (var category in categories) {
         // Convert asset to File
         File imageFile = await CustomHelperFunction.assetToFile(category.image);
-    
+
         // Get extension
         String extension = imageFile.path.split('.').last;
 
         // Upload to Firebase Storage
-        String? imageUrl = await uploadFileToFirebaseStorageWithCategories(
+        String? imageUrl = await Utils.uploadFileToFirebaseStorage(
           imageFile.path,
           DatabaseKey.categoryFolder,
           extension,
@@ -108,4 +88,41 @@ class CategoryRespositry extends GetxController {
       Utils.showToast("❌ Error uploading categories: $e");
     }
   }
+
+  Future<List<CategoryModel>> getAllCategories() async {
+    List<CategoryModel> categoriesList = [];
+    try {
+      isLoading.value = true;
+      categoriesList.clear();
+      final query = await _db.collection(DatabaseKey.categoryCollection).get();
+      if (query.docs.isNotEmpty) {
+        for (int i = 0; i < query.docs.length; i++) {
+          final doc = query.docs[i];
+
+          if (doc.exists) {
+            CategoryModel category = CategoryModel.fromSnapshot(doc);
+            categoriesList.add(category);
+            print("category=====>${category}");
+          } else {
+            Utils.showToast("⚠️ Document missing at index: $i");
+          }
+        }
+      } else {
+        Utils.showToast("📭 No categories found in Firestore");
+      }
+    } on FirebaseException catch (e) {
+      Utils.showToast(CustomFirebaseAuthException(e.code).message);
+    } on PlatformException catch (e) {
+      Utils.showToast(CustomFirebaseAuthException(e.code).message);
+    } on FormatException {
+      Utils.showToast("Invalid format");
+    } catch (e) {
+      Utils.showToast("Something went wrong. Please try again.");
+    } finally {
+      isLoading.value = false;
+    }
+    return categoriesList;
+  }
+
+  //upload o
 }

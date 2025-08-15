@@ -1,3 +1,5 @@
+import 'package:ecommerceappwithfirebase/controller/category_controller.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../utils/comman/custom_search_bar.dart';
@@ -17,10 +19,11 @@ class StoreScreen extends StatefulWidget {
 }
 
 class _StoreScreenState extends State<StoreScreen> {
+  final categoryController = Get.put(CategoryController());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 10,
+      length: categoryController.featuredCategories.length,
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -68,31 +71,22 @@ class _StoreScreenState extends State<StoreScreen> {
                 ),
 
                 bottom: CustomTabBar(
-                  tabs: [
-                    Tab(child: Utils.customText("Electronic")),
-                    Tab(child: Utils.customText("Fashion")),
-                    Tab(child: Utils.customText("Electronic")),
-                    Tab(child: Utils.customText("Fashion")),
-                    Tab(child: Utils.customText("Books")),
-                    Tab(child: Utils.customText("Fashion")),
-                    Tab(child: Utils.customText("Electronic")),
-                    Tab(child: Utils.customText("Books")),
-                    Tab(child: Utils.customText("Fashion")),
-                    Tab(child: Utils.customText("Fashion")),
-                  ],
+                  tabs:
+                      categoryController.featuredCategories
+                          .map(
+                            (feature) =>
+                                Tab(child: Utils.customText(feature.name)),
+                          )
+                          .toList(),
                 ),
               ),
             ];
           },
           body: TabBarView(
-            children: [
-              CustomCategoryTab(),
-              CustomCategoryTab(),
-              CustomCategoryTab(),
-              CustomCategoryTab(),
-              CustomCategoryTab(),
-              CustomCategoryTab(),
-            ],
+            children:
+                categoryController.featuredCategories
+                    .map((category) => CustomCategoryTab())
+                    .toList(),
           ),
         ),
       ),

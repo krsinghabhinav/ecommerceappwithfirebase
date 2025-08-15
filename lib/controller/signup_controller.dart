@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/data/repositories/user_repository.dart';
-import 'package:ecommerceappwithfirebase/features/authentication/model/user_model.dart';
-import 'package:ecommerceappwithfirebase/features/shopping/screen/personalization/controller/user_controller.dart';
+import 'package:ecommerceappwithfirebase/model/user_model.dart';
+import 'package:ecommerceappwithfirebase/controller/user_controller.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/exceptions/firebase_auth_exceptions.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/network_manager.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/validators/validation.dart';
@@ -17,9 +17,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
-import '../../../common/key/database_key.dart';
-import '../../../data/repositories/authentications_repo.dart';
-import '../auth screen/email screen/verity_eamil_address.dart';
+import '../common/key/database_key.dart';
+import '../data/repositories/authentications_repo.dart';
+import '../features/authentication/auth screen/email screen/verity_eamil_address.dart';
 
 class SignupController extends GetxController {
   final TextEditingController firstnameController = TextEditingController();

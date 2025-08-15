@@ -6,9 +6,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import '../../../data/repositories/authentications_repo.dart';
-import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
-import '../../../utils/utils.dart';
+import '../data/repositories/authentications_repo.dart';
+import '../utils/helpers/exceptions/firebase_auth_exceptions.dart';
+import '../utils/utils.dart';
 
 class VerifyEmailController extends GetxController {
   RxBool loading = false.obs;

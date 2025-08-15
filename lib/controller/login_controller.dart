@@ -4,15 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../../../data/repositories/authentications_repo.dart';
-import '../../../navigation_menubar.dart';
-import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart'
+import '../data/repositories/authentications_repo.dart';
+import '../navigation_menubar.dart';
+import '../utils/helpers/exceptions/firebase_auth_exceptions.dart'
     show CustomFirebaseAuthException;
-import '../../../utils/helpers/network_manager.dart';
-import '../../../utils/helpers/validators/validation.dart';
-import '../../../utils/popups/full_screen_loader.dart';
-import '../../../utils/popups/snackbar_helpers.dart';
-import '../../../utils/utils.dart';
+import '../utils/helpers/network_manager.dart';
+import '../utils/helpers/validators/validation.dart';
+import '../utils/popups/full_screen_loader.dart';
+import '../utils/popups/snackbar_helpers.dart';
+import '../utils/utils.dart';
 
 class LoginController extends GetxController {
   var isLoading = false.obs;

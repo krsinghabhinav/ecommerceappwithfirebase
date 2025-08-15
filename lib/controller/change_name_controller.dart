@@ -1,11 +1,11 @@
-import 'package:ecommerceappwithfirebase/features/shopping/screen/personalization/controller/user_controller.dart';
+import 'package:ecommerceappwithfirebase/controller/user_controller.dart';
 import 'package:ecommerceappwithfirebase/navigation_menubar.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../../../data/repositories/user_repository.dart';
-import '../../../../../utils/helpers/validators/validation.dart';
-import '../../../../../utils/utils.dart';
+import '../data/repositories/user_repository.dart';
+import '../utils/helpers/validators/validation.dart';
+import '../utils/utils.dart';
 
 class ChangeNameController extends GetxController {
   final firstNameController = TextEditingController();

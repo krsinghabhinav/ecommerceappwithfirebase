@@ -7,8 +7,8 @@ import '../../../../../utils/constants/custom_text.dart';
 import '../../../../../utils/constants/custome_sizes.dart';
 import '../../../../../utils/utils.dart';
 import '../../../../utils/constants/custom_images_path.dart';
-import '../../controller/google_auth_controller.dart';
-import '../../controller/login_controller.dart';
+import '../../../../controller/google_auth_controller.dart';
+import '../../../../controller/login_controller.dart';
 import '../forgot_password/forgot_screen.dart';
 import '../signup/new_singup_screen.dart';
 

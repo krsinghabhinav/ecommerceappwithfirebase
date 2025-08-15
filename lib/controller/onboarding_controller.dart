@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../auth screen/login/login_screen.dart';
+import '../features/authentication/auth screen/login/login_screen.dart';
 
 class OnboardingController extends GetxController {
   var currentIndex = 0.obs;

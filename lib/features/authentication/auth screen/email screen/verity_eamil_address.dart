@@ -11,8 +11,8 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../../../../utils/constants/custom_images_path.dart';
-import '../../controller/logout_controller.dart';
-import '../../controller/verify_eamil_controller.dart';
+import '../../../../controller/logout_controller.dart';
+import '../../../../controller/verify_eamil_controller.dart';
 
 class VerityEamilAddress extends StatefulWidget {
   String? email;

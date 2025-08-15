@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../utils/constants/enums.dart';
+import '../utils/constants/enums.dart';
 
 class PromoCodeModel {
   final String id;

@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/comman/circular_image.dart';
-import '../../../../authentication/controller/signup_controller.dart';
-import '../controller/user_controller.dart';
+import '../../../../../controller/signup_controller.dart';
+import '../../../../../controller/user_controller.dart';
 
 class CustomProfileWithEditIcon extends StatefulWidget {
   const CustomProfileWithEditIcon({super.key});

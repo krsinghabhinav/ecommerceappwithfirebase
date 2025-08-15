@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../utils/comman/customappbar.dart';
-import 'controller/change_name_controller.dart';
+import '../../../../controller/change_name_controller.dart';
 
 class ChangeUsernameScreeen extends StatefulWidget {
   const ChangeUsernameScreeen({super.key});

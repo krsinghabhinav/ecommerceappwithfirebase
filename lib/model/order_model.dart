@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/custom_helper_function.dart';
-import '../../../utils/constants/enums.dart';
+import '../utils/constants/enums.dart';
 
 import 'cart_item_model.dart';
 

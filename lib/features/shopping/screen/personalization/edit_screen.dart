@@ -12,7 +12,7 @@ import '../../../../utils/constants/custome_sizes.dart';
 import '../../../../utils/utils.dart';
 import '../home/widgets/primaryheadercontainer.dart';
 import 'change_username_screeen.dart';
-import 'controller/user_controller.dart';
+import '../../../../controller/user_controller.dart';
 import 'widget/CustomProfileWithEditIcon.dart';
 import 'widget/UserDetailsRow.dart';
 

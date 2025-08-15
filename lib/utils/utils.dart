@@ -1,42 +1,46 @@
+import 'dart:io';
+
 import 'package:ecommerceappwithfirebase/utils/constants/custom_colorsd.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:uuid/uuid.dart';
 
 class Utils {
   Utils._();
+  static final storage = FirebaseStorage.instance;
 
- static TextFormField customTextFormField({
-  String? label,
-  String? hintText,
-  required TextEditingController controller,
-  TextInputType keyboardType = TextInputType.text,
-  bool obscureText = false,
-  IconData? prefixIcon,
-  Widget? suffixIcon, // <-- Change this to Widget?
-  int? maxlenth,
-  FormFieldValidator<String>? validator,
-  void Function(String)? onChanged,
-}) {
-  return TextFormField(
-    controller: controller,
-    keyboardType: keyboardType,
-    obscureText: obscureText,
-    validator: validator,
-    onChanged: onChanged,
-    maxLength: maxlenth,
-    decoration: InputDecoration(
-      labelText: label,
-      hintText: hintText,
-      prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
-      suffixIcon: suffixIcon, // Directly assign the widget here
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
-    ),
-  );
-}
-
+  static TextFormField customTextFormField({
+    String? label,
+    String? hintText,
+    required TextEditingController controller,
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+    IconData? prefixIcon,
+    Widget? suffixIcon, // <-- Change this to Widget?
+    int? maxlenth,
+    FormFieldValidator<String>? validator,
+    void Function(String)? onChanged,
+  }) {
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      validator: validator,
+      onChanged: onChanged,
+      maxLength: maxlenth,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hintText,
+        prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
+        suffixIcon: suffixIcon, // Directly assign the widget here
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 2, vertical: 2),
+      ),
+    );
+  }
 
   static Widget customButton({
     required String text,
@@ -202,9 +206,10 @@ class Utils {
       ),
     );
   }
- static void showToast(String text, [Color? bgColor]) {
+
+  static void showToast(String text, [Color? bgColor]) {
     Fluttertoast.cancel();
-    
+
     Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_LONG,
@@ -216,6 +221,7 @@ class Utils {
       fontSize: 16.0,
     );
   }
+
   static Widget customIcon({
     required String imagePath,
     double size = 48, // default size (width & height)
@@ -235,5 +241,26 @@ class Utils {
       ),
       child: Image.asset(imagePath, width: size, height: size, fit: fit),
     );
+  }
+
+  /// Upload file to Firebase Storage
+  static Future<String?> uploadFileToFirebaseStorage(
+    String filePath,
+    String folder,
+    String extension,
+  ) async {
+    try {
+      var uuid = const Uuid();
+      String uniqueFileName = "${uuid.v4()}.$extension";
+      final path = "$folder/$uniqueFileName";
+      final file = File(filePath);
+      final ref = storage.ref().child(path);
+
+      await ref.putFile(file);
+      return await ref.getDownloadURL();
+    } catch (e) {
+      Utils.showToast("❌ Error uploading file: $e");
+      return null;
+    }
   }
 }

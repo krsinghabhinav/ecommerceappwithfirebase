@@ -1,4 +1,4 @@
-import 'package:ecommerceappwithfirebase/features/shopping/screen/personalization/controller/user_controller.dart';
+import 'package:ecommerceappwithfirebase/controller/user_controller.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_colorsd.dart';
 import 'package:ecommerceappwithfirebase/utils/utils.dart';
 import 'package:flutter/material.dart';

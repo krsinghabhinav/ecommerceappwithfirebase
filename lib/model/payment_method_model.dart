@@ -1,7 +1,7 @@
 
 
 
-import '../../../utils/constants/enums.dart';
+import '../utils/constants/enums.dart';
 
 class PaymentMethodModel{
   String name;

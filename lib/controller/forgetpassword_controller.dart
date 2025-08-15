@@ -6,9 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
-import '../../../utils/helpers/validators/validation.dart';
-import '../../../utils/utils.dart';
+import '../utils/helpers/exceptions/firebase_auth_exceptions.dart';
+import '../utils/helpers/validators/validation.dart';
+import '../utils/utils.dart';
 
 class ForgotPasswordController extends GetxController {
   final TextEditingController emailController = TextEditingController();

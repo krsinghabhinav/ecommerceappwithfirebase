@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../data/repositories/authentications_repo.dart';
-import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
-import '../../shopping/screen/personalization/controller/user_controller.dart';
+import '../data/repositories/authentications_repo.dart';
+import '../utils/helpers/exceptions/firebase_auth_exceptions.dart';
+import 'user_controller.dart';
 
 class GoogleAuthController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
