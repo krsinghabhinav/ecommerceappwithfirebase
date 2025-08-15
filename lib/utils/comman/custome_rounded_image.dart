@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/custome_sizes.dart';
@@ -11,7 +12,7 @@ class CustomeRoundedImage extends StatelessWidget {
   final BoxFit? fit;
   final EdgeInsetsGeometry? padding;
   final bool isNetworkImage;
-  final VoidCallback? onPressed;
+  final VoidCallback? onTab;
   final double? borderRadius; // ✅ Make it nullable
 
   const CustomeRoundedImage({
@@ -25,7 +26,7 @@ class CustomeRoundedImage extends StatelessWidget {
     this.height,
     this.width,
     this.isNetworkImage = false,
-    this.onPressed,
+    this.onTab,
     this.padding,
   });
 
@@ -34,7 +35,7 @@ class CustomeRoundedImage extends StatelessWidget {
     final double resolvedRadius = borderRadius ?? CustomeSizes.md;
 
     return GestureDetector(
-      onTap: onPressed,
+      onTap: onTab,
       child: Container(
         height: height,
         width: width,
@@ -52,7 +53,7 @@ class CustomeRoundedImage extends StatelessWidget {
           child: Image(
             image:
                 isNetworkImage
-                    ? NetworkImage(image ?? " ") as ImageProvider
+                    ? CachedNetworkImageProvider(image ?? "")
                     : AssetImage(image ?? ""),
             fit: fit,
           ),

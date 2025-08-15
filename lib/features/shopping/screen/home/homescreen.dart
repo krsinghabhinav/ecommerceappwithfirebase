@@ -93,16 +93,7 @@ class _HomescreenState extends State<Homescreen> {
             const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomePromoSider(
-                banner: [
-                  CustomImages.banner1,
-                  CustomImages.banner2,
-                  CustomImages.banner3,
-                  CustomImages.banner4,
-                  CustomImages.banner5,
-                  CustomImages.banner6,
-                ],
-              ),
+              child: CustomePromoSider(),
             ),
             const SizedBox(height: 15),
             Padding(

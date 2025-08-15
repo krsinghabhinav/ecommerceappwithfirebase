@@ -1,3 +1,4 @@
+// 📂 banner_repository.dart
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/common/key/database_key.dart';
@@ -20,22 +21,19 @@ class BannerRepository extends GetxController {
 
   var isLoading = false.obs;
 
-  /// Upload banners to Firebase Storage + Firestore
+  /// Upload banners
   Future<void> uploadBannerImage(List<BannerModel> banners) async {
     isLoading.value = true;
 
     try {
       for (var banner in banners) {
         try {
-          // 1️⃣ Convert asset to File
           File imageFile = await CustomHelperFunction.assetToFile(
             banner.imageUrl,
           );
 
-          // 2️⃣ Get extension
           String extension = imageFile.path.split('.').last;
 
-          // 3️⃣ Upload to Firebase Storage
           String? uploadedUrl = await Utils.uploadFileToFirebaseStorage(
             imageFile.path,
             DatabaseKey.bannersFolder,
@@ -49,23 +47,15 @@ class BannerRepository extends GetxController {
             continue;
           }
 
-          // 4️⃣ Create a new banner instance with updated imageUrl
-          final updatedBanner = BannerModel(
-            imageUrl: uploadedUrl,
-            targetScreen: banner.targetScreen,
-            active: banner.active,
-          );
+          banner.imageUrl = uploadedUrl;
 
-          // 5️⃣ Generate a unique document ID
-          String docId = const Uuid().v4();
-
-          // 6️⃣ Save to Firestore
+          // 🔹 Firestore में ID वही use करें जो BannerModel में है
           await _db
               .collection(DatabaseKey.bannerCollection)
-              .doc(docId)
-              .set(updatedBanner.toJson());
+              .doc(banner.id)
+              .set(banner.toJson());
 
-          print("✅ Banner uploaded: ${updatedBanner.imageUrl}");
+          print("✅ Banner uploaded: ${banner.imageUrl}");
         } catch (err) {
           Utils.showToast("⚠️ Error processing banner: $err");
         }
@@ -81,22 +71,13 @@ class BannerRepository extends GetxController {
     List<BannerModel> bannerList = [];
     try {
       isLoading.value = true;
-      bannerList.clear();
-      final query = await _db.collection(DatabaseKey.bannerCollection).get();
-      if (query.docs.isNotEmpty) {
-        for (int i = 0; i < query.docs.length; i++) {
-          final doc = query.docs[i];
-
-          if (doc.exists) {
-            BannerModel category = BannerModel.fromDocument(doc);
-            bannerList.add(category);
-            print("category=====>${category}");
-          } else {
-            Utils.showToast("⚠️ Document missing at index: $i");
-          }
-        }
-      } else {
-        Utils.showToast("📭 No categories found in Firestore");
+      final query =
+          await _db
+              .collection(DatabaseKey.bannerCollection)
+              .where("active", isEqualTo: true)
+              .get();
+      for (var doc in query.docs) {
+        bannerList.add(BannerModel.fromDocument(doc));
       }
     } on FirebaseException catch (e) {
       Utils.showToast(CustomFirebaseAuthException(e.code).message);

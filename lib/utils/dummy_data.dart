@@ -19,28 +19,39 @@ class CustomDummyData {
 
   static final List<BannerModel> banner = [
     BannerModel(
+      id: "1",
       imageUrl: CustomImages.homeBanner1,
       targetScreen: CustomRoutes.order,
       active: true,
     ),
     BannerModel(
+      id: "2",
       imageUrl: CustomImages.homeBanner2,
       targetScreen: CustomRoutes.cart,
       active: true,
     ),
     BannerModel(
+      id: "3",
       imageUrl: CustomImages.homeBanner3,
       targetScreen: CustomRoutes.wishlist,
       active: true,
     ),
     BannerModel(
+      id: "4",
       imageUrl: CustomImages.homeBanner4,
       targetScreen: CustomRoutes.productDetail,
       active: true,
     ),
     BannerModel(
+      id: "5",
       imageUrl: CustomImages.homeBanner5,
       targetScreen: CustomRoutes.profile,
+      active: true,
+    ),
+    BannerModel(
+      id: "6",
+      imageUrl: CustomImages.homeBanner6,
+      targetScreen: CustomRoutes.editProfile,
       active: true,
     ),
   ];

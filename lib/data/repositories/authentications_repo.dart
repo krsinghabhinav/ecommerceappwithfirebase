@@ -23,9 +23,9 @@ class AuthenticationsRepoController extends GetxController {
     // Get.put(CategoryRespositry()).uploadCategories(CustomDummyData.categories);
     /// Upload categories to Firebase Storage + Firestore on app start
     // Get.put(CategoryRespositry()).uploadCategories(CustomDummyData.categories);
-    Get.put(BannerRepository()).uploadBannerImage(CustomDummyData.banner);
+    // Get.put(BannerRepository()).uploadBannerImage(CustomDummyData.banner);
     checkAndUploadCategories();
-
+    checkAndUploadBanners();
     super.onReady();
   }
 
@@ -96,23 +96,45 @@ class AuthenticationsRepoController extends GetxController {
 
   Future<List<BannerModel>> _getNewBanners() async {
     final repo = Get.put(BannerRepository());
-    final firestoreBanners =
-        await repo
-            .getAllBanners(); // You'll add this method in BannerRepository
+    final firestoreBanners = await repo.getAllBanners();
     List<BannerModel> newList = [];
 
-    for (var dummyBanner in CustomDummyData.banner) {
-      bool exists = firestoreBanners.any(
-        (existing) =>
-            existing.imageUrl == dummyBanner.imageUrl &&
-            existing.targetScreen == dummyBanner.targetScreen,
-      );
+    for (int i = 0; i < CustomDummyData.banner.length; i++) {
+      bool exists = false;
+
+      for (int j = 0; j < firestoreBanners.length; j++) {
+        // 🔹 अब ID से compare होगा, जिससे पहली बार के बाद डुप्लीकेट नहीं होंगे
+        if (firestoreBanners[j].id == CustomDummyData.banner[i].id) {
+          exists = true;
+          break;
+        }
+      }
+
       if (!exists) {
-        newList.add(dummyBanner);
+        newList.add(CustomDummyData.banner[i]);
       }
     }
     return newList;
   }
+  // Future<List<BannerModel>> _getNewBanners() async {
+  //   final repo = Get.put(BannerRepository());
+  //   final firestoreBanners =
+  //       await repo
+  //           .getAllBanners(); // You'll add this method in BannerRepository
+  //   List<BannerModel> newList = [];
+
+  //   for (var dummyBanner in CustomDummyData.banner) {
+  //     bool exists = firestoreBanners.any(
+  //       (existing) =>
+  //           existing.imageUrl == dummyBanner.imageUrl &&
+  //           existing.targetScreen == dummyBanner.targetScreen,
+  //     );
+  //     if (!exists) {
+  //       newList.add(dummyBanner);
+  //     }
+  //   }
+  //   return newList;
+  // }
 
   void screenRedirect() async {
     await Future.delayed(const Duration(seconds: 3)); // Wait for splash
