@@ -1,5 +1,7 @@
 import 'package:ecommerceappwithfirebase/common/localstoragetext.dart';
+import 'package:ecommerceappwithfirebase/data/repositories/category/category_respositry.dart';
 import 'package:ecommerceappwithfirebase/features/authentication/auth%20screen/email%20screen/verity_eamil_address.dart';
+import 'package:ecommerceappwithfirebase/utils/dummy_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -11,6 +13,16 @@ class AuthenticationsRepoController extends GetxController {
   final storage = GetStorage();
   final auth = FirebaseAuth.instance;
   User? get currentUser => auth.currentUser;
+
+  @override
+  void onReady() {
+    screenRedirect();
+    // Get.put(CategoryRespositry()).uploadCategories(CustomDummyData.categories);
+    /// Upload categories to Firebase Storage + Firestore on app start
+    Get.put(CategoryRespositry()).uploadCategories(CustomDummyData.categories);
+    super.onReady();
+  }
+
   void screenRedirect() async {
     await Future.delayed(const Duration(seconds: 3)); // Wait for splash
 
@@ -24,7 +36,7 @@ class AuthenticationsRepoController extends GetxController {
         Get.offAll(() => NavigationMenubar());
       } else {
         Get.offAll(() => VerityEamilAddress());
-      } 
+      }
     } else {
       if (isFirstTime == true) {
         Get.offAll(() => OnboardingScreen());
@@ -33,6 +45,4 @@ class AuthenticationsRepoController extends GetxController {
       }
     }
   }
-
-  
 }

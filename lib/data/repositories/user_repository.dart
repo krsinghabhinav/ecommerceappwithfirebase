@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
 import '../../utils/utils.dart';
+import '../services/cloudinary_services.dart';
 import 'authentications_repo.dart';
 
 class UserRepository extends GetxController {
@@ -14,6 +15,7 @@ class UserRepository extends GetxController {
   AuthenticationsRepoController authRepoController = Get.put(
     AuthenticationsRepoController(),
   );
+  CloudinaryServices cloudinaryService = Get.put(CloudinaryServices());
   Future<void> saveUserRecords(UserModel user) async {
     try {
       await _db

@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../../../utils/comman/circular_image.dart';
-import '../change_username_screeen.dart';
+import '../../../../authentication/controller/signup_controller.dart';
 import '../controller/user_controller.dart';
 
 class CustomProfileWithEditIcon extends StatefulWidget {
@@ -16,48 +16,69 @@ class CustomProfileWithEditIcon extends StatefulWidget {
 
 class _CustomProfileWithEditIconState extends State<CustomProfileWithEditIcon> {
   late UserController userController;
-  @override
-  void initState() {
-    userController = Get.put(UserController());
-    super.initState();
-  }
+  late SignupController signupController;
 
   @override
-  void dispose() {
-    Get.delete<UserController>();
-    super.dispose();
+  void initState() {
+    super.initState();
+    signupController = Get.find<SignupController>();
+    userController = Get.find<UserController>();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80, // ⬅️ enough space for profile image to float
+      height: 80,
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
         children: [
-          // Example: You can add background if needed
           Positioned(
-            bottom: -60, // ⬅️ Profile image will appear below container
-            child: Obx(
-              () => CustomCircularImage(
+            bottom: -60,
+            child: Obx(() {
+              // Image priority: Newly picked image → Updated from userController
+              String img = "";
+              if (signupController.imageUrl.value.isNotEmpty) {
+                img = signupController.imageUrl.value;
+              } else if (userController.user.value.profilePicture != null &&
+                  userController.user.value.profilePicture!.isNotEmpty) {
+                img = userController.user.value.profilePicture!;
+              }
+
+              return CustomCircularImage(
                 isNetworkImage: true,
                 borderColor: Colors.blue,
                 borderWidth: 2,
-                image: userController.user.value.profilePicture.toString(),
+                image: img,
                 height: 120,
                 width: 120,
-              ),
-            ),
+              );
+            }),
           ),
           Positioned(
-            bottom: -28, // ⬅️ Profile image will appear below container
-            child: IconButton(
-              onPressed: () {
-                Get.to(ChangeUsernameScreeen());
-              },
-              icon: Icon(Iconsax.edit),
-            ),
+            bottom: -28,
+            child: Obx(() {
+              // Agar uploading ho rahi hai to loading indicator
+              if (signupController.isImageUploading.value) {
+                return const SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                );
+              }
+
+              // Agar uploading nahi ho rahi hai to edit button
+              return IconButton(
+                onPressed: () async {
+                  // Upload start hone se pehle flag true
+                  signupController.isImageUploading.value = true;
+                  await signupController.showImagePickerSheet(context);
+                  // Upload complete hone ke baad flag false
+                  signupController.isImageUploading.value = false;
+                },
+                icon: const Icon(Iconsax.edit),
+              );
+            }),
           ),
         ],
       ),

@@ -26,4 +26,5 @@ class CustomText {
       "Log in to Access Exclusive Deals and Simplify Your Shopping Experience";
   static const String textforgotdes =
       "No worries! Enter your registered email address, and we’ll help you reset your password";
+       static const String currency = '\$';
 }

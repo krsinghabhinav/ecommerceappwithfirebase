@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../common/key/database_key.dart';
 import '../../../data/repositories/authentications_repo.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../utils/helpers/exceptions/firebase_auth_exceptions.dart';
@@ -15,7 +18,8 @@ class LogoutController extends GetxController {
   AuthenticationsRepoController authRepoController = Get.put(
     AuthenticationsRepoController(),
   );
-
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
   Future<void> logout() async {
     try {
       loading.value = true;
@@ -50,8 +54,31 @@ class LogoutController extends GetxController {
         return;
       }
 
+      // Get old image URL from Firestore
+      DocumentSnapshot userDoc =
+          await firestore
+              .collection(DatabaseKey.userCollection)
+              .doc(user.uid)
+              .get();
+      String? oldImageUrl;
+      if (userDoc.exists) {
+        oldImageUrl = userDoc['profilePicture'];
+      }
       await userRepository.removeUserRecord(user.uid);
+
+      if (oldImageUrl != null &&
+          oldImageUrl.isNotEmpty &&
+          oldImageUrl != 'N/A') {
+        try {
+          await storage.refFromURL(oldImageUrl!).delete();
+          Utils.showToast("✅ Profile image deleted successfully.");
+        } catch (e) {
+          Utils.showToast("⚠ Could not delete profile image: $e");
+        }
+      }
+
       final currentAuthUser = auth.currentUser;
+
       if (currentAuthUser != null) {
         await currentAuthUser.delete();
         Utils.showToast(" Your account has been successfully deleted.");

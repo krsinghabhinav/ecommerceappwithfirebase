@@ -35,6 +35,13 @@ dependencies:
   cloud_firestore: ^5.6.12
   get_storage: ^2.1.1
   connectivity_plus: ^6.1.4
+  image_picker: ^1.1.2
+  permission_handler: ^11.3.1
+  flutter_bloc: ^9.1.1
+  uuid: ^4.5.1
+  firebase_storage: ^12.4.10
+  dio: ^5.9.0
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
