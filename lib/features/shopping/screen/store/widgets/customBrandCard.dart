@@ -1,3 +1,4 @@
+import 'package:ecommerceappwithfirebase/model/brand_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,11 +14,14 @@ class customBrandCard extends StatelessWidget {
     this.onTab,
     this.height,
     this.width,
+    required this.brandModel,
   });
   final bool showBorder;
   final VoidCallback? onTab;
   final double? height;
   final double? width;
+
+  final BrandModel brandModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,8 +39,9 @@ class customBrandCard extends StatelessWidget {
               SizedBox(width: 4),
               CustomeRoundedImage(
                 borderRadius: 10,
-                image: "assets/brands/ndure.png",
+                image: brandModel.image,
                 width: 50,
+                isNetworkImage: true,
               ),
               SizedBox(width: Get.width * 0.02),
               Expanded(
@@ -50,7 +55,7 @@ class customBrandCard extends StatelessWidget {
                           child: CustomProductTitle(
                             maxlines: 1,
                             textoverflow: TextOverflow.ellipsis,
-                            title: "Appleee",
+                            title: brandModel.name,
                             isSmallSize: false,
                             large: 16,
                           ),
@@ -67,7 +72,7 @@ class customBrandCard extends StatelessWidget {
                     CustomProductTitle(
                       maxlines: 1,
                       textoverflow: TextOverflow.ellipsis,
-                      title: "172 Products",
+                      title: "${brandModel.productsCount} Product",
                       isSmallSize: true,
                       small: 14,
                     ),

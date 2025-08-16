@@ -1,4 +1,6 @@
+import 'package:ecommerceappwithfirebase/controller/brands_controllers.dart';
 import 'package:ecommerceappwithfirebase/controller/category_controller.dart';
+import 'package:ecommerceappwithfirebase/model/brand_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,6 +22,7 @@ class StoreScreen extends StatefulWidget {
 
 class _StoreScreenState extends State<StoreScreen> {
   final categoryController = Get.put(CategoryController());
+  final brandController = Get.put(BrandsControllers());
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -57,14 +60,25 @@ class _StoreScreenState extends State<StoreScreen> {
                       ),
                       SizedBox(
                         height: 70,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return customBrandCard();
-                          },
-                        ),
+                        child: Obx(() {
+                          final brand = brandController.featuerList;
+                          if (brandController.isLoading.value) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+                          if (brand.isEmpty) {
+                            return Center(child: Text("No Brands Available"));
+                          }
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: brandController.featuerList.length,
+                            itemBuilder: (context, index) {
+                              BrandModel brandData =
+                                  brandController.featuerList[index];
+                              return customBrandCard(brandModel: brandData);
+                            },
+                          );
+                        }),
                       ),
                     ],
                   ),

@@ -37,7 +37,6 @@ class CategoryController extends GetxController {
             categories[i].parentId.isEmpty) {
           featuredCategories.add(categories[i]);
         }
-        print("lenth of categories====> ${categories.length}");
       }
     } catch (e) {
       Utils.showToast("❌ Error: $e");

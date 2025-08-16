@@ -9,8 +9,10 @@ import 'package:get_storage/get_storage.dart';
 import '../../features/authentication/auth screen/login/login_screen.dart';
 import '../../features/authentication/auth screen/onboarding/onboarding_screen.dart';
 import '../../model/banners_model.dart';
+import '../../model/brand_model.dart';
 import '../../model/category_model.dart';
 import '../../navigation_menubar.dart';
+import 'brand/brand_repositry.dart';
 
 class AuthenticationsRepoController extends GetxController {
   final storage = GetStorage();
@@ -24,9 +26,53 @@ class AuthenticationsRepoController extends GetxController {
     /// Upload categories to Firebase Storage + Firestore on app start
     // Get.put(CategoryRespositry()).uploadCategories(CustomDummyData.categories);
     // Get.put(BannerRepository()).uploadBannerImage(CustomDummyData.banner);
-    checkAndUploadCategories();
-    checkAndUploadBanners();
+    // checkAndUploadCategories();
+    // checkAndUploadBanners();
+    // // Get.put(BrandRepository()).uploadBrandImage(CustomDummyData.brands);
+    // checkAndUploadBrands(); // ✅ fixed
+
     super.onReady();
+  }
+
+  /// ========================= BRANDS =========================
+  Future<void> checkAndUploadBrands() async {
+    bool alreadyUploaded = storage.read("brandsUploaded") ?? false;
+    final repo = Get.put(BrandRepository());
+
+    if (!alreadyUploaded) {
+      await repo.uploadBrandImage(CustomDummyData.brands);
+      storage.write("brandsUploaded", true);
+      print("✅ Brands uploaded first time.");
+    } else {
+      List<BrandModel> newBrands = await _getNewBrands();
+      if (newBrands.isNotEmpty) {
+        await repo.uploadBrandImage(newBrands);
+        print("✅ Only new brands uploaded: ${newBrands.length}");
+      } else {
+        print("🚫 No new brands to upload");
+      }
+    }
+  }
+
+  /// Compare dummy brands with Firestore brands → get only new ones
+  Future<List<BrandModel>> _getNewBrands() async {
+    final repo = Get.put(BrandRepository());
+    final firestoreBrands = await repo.getAllBrands();
+    List<BrandModel> newList = [];
+
+    for (var dummyBrand in CustomDummyData.brands) {
+      bool exists = false;
+      for (var firestoreBrand in firestoreBrands) {
+        if (dummyBrand.id == firestoreBrand.id) {
+          exists = true;
+          break;
+        }
+      }
+      if (!exists) {
+        newList.add(dummyBrand);
+      }
+    }
+    return newList;
   }
 
   Future<void> checkAndUploadCategories() async {

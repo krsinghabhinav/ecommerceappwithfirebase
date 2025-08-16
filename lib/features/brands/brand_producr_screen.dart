@@ -1,13 +1,15 @@
 import 'package:ecommerceappwithfirebase/features/shopping/screen/store/widgets/customBrandCard.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/brand_model.dart';
 import '../../utils/comman/CustomSortableProducts.dart';
 import '../../utils/comman/customappbar.dart';
 import '../../utils/utils.dart';
 import '../allproduct/all_product_screen.dart';
 
 class BrandProducrScreen extends StatefulWidget {
-  const BrandProducrScreen({super.key});
+  final BrandModel brandModel;
+  const BrandProducrScreen({super.key, required this.brandModel});
 
   @override
   State<BrandProducrScreen> createState() => _BrandProducrScreenState();
@@ -30,7 +32,10 @@ class _BrandProducrScreenState extends State<BrandProducrScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: customBrandCard(width: double.infinity),
+              child: customBrandCard(
+                width: double.infinity,
+                brandModel: widget.brandModel,
+              ),
             ),
             SizedBox(height: 20),
             CustomSortableProducts(),

@@ -1,3 +1,4 @@
+import 'package:ecommerceappwithfirebase/model/brand_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../utils/comman/custom_shap/rounded_container.dart';
@@ -22,7 +23,7 @@ class CustomBrandShowCase extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customBrandCard(showBorder: false),
+            customBrandCard(showBorder: false, brandModel: BrandModel.empty()),
             // ✅ Scrollable row for brand images
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,

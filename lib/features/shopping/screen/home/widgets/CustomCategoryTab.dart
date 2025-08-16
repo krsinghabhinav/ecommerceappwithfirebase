@@ -33,7 +33,7 @@ class CustomCategoryTab extends StatelessWidget {
           buttonTitle: "View All",
         ),
 
-        CustomGridLayout(
+        CustomGridLayout(   
           itemCout: 10,
           mainAxisExtent: Get.height * 0.32,
           itemBuilder: (context, index) {

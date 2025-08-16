@@ -2,6 +2,8 @@ import 'package:ecommerceappwithfirebase/features/brands/brand_producr_screen.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/brands_controllers.dart';
+import '../../model/brand_model.dart';
 import '../../utils/comman/GridLayout.dart';
 import '../../utils/comman/customappbar.dart';
 import '../../utils/utils.dart';
@@ -15,6 +17,8 @@ class BrandsScreen extends StatefulWidget {
 }
 
 class _BrandsScreenState extends State<BrandsScreen> {
+  final brandController = Get.put(BrandsControllers());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,17 +31,29 @@ class _BrandsScreenState extends State<BrandsScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: CustomGridLayout(
-          itemCout: 20,
-          mainAxisExtent: 88,
-          itemBuilder: (context, index) {
-            return customBrandCard(
-              onTab: () {
-                Get.to(() => BrandProducrScreen());
-              },
-            );
-          },
-        ),
+        child: Obx(() {
+          final brand = brandController.brandList;
+          if (brandController.isLoading.value) {
+            return Center(child: CircularProgressIndicator());
+          }
+
+          if (brand.isEmpty) {
+            return Center(child: Text(" Brand not found"));
+          }
+          return CustomGridLayout(
+            itemCout: brandController.brandList.length,
+            mainAxisExtent: 88,
+            itemBuilder: (context, index) {
+              BrandModel brandModel = brandController.brandList[index];
+              return customBrandCard(
+                brandModel: brandModel,
+                onTab: () {
+                  Get.to(() => BrandProducrScreen(brandModel: brandModel));
+                },
+              );
+            },
+          );
+        }),
       ),
     );
   }

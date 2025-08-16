@@ -236,4 +236,21 @@ class CustomImages {
   static const String successfulPaymentIcon = "assets/icons/payment_methods/successful_payment_icon.png";
   static const String codIcon = "assets/icons/payment_methods/cod.png";
 
+
+
+
+//brand logos
+static const String nike = 'assets/brands/nike.png';
+static const String adidas = 'assets/brands/adidas.jpg';
+static const String apple = 'assets/brands/apple.jpg';
+static const String bata = 'assets/brands/bata.png';
+static const String bloody = 'assets/brands/bloody.png'; 
+static const String breakout = 'assets/brands/breakout.jpg'; 
+static const String dariMooch = 'assets/brands/dari_mooch.png'; 
+static const String interwood = 'assets/brands/interwood.jpeg'; 
+static const String hp = 'assets/brands/hp.jpg'; 
+static const String j = 'assets/brands/j..png'; 
+static const String ndure = 'assets/brands/ndure.png'; 
+static const String northstar = 'assets/brands/north_star.jpg'; 
+static const String polo = 'assets/brands/polo.png  assets/brands/polo.png'; 
 }
