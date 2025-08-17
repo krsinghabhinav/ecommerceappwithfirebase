@@ -10,10 +10,12 @@ class CustomproductPrice extends StatelessWidget {
     this.lineThrough = false,
     this.lg,
     this.sm,
+    this.color,
   });
   final String price;
   final bool isLarge, lineThrough;
   final double? lg, sm;
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -23,6 +25,7 @@ class CustomproductPrice extends StatelessWidget {
         fontWeight: FontWeight.bold,
         overflow: TextOverflow.ellipsis,
         maxLines: 1,
+        color: color,
       ),
     );
   }

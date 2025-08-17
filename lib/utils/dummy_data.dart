@@ -243,91 +243,104 @@ class CustomDummyData {
   static final List<BrandModel> brands = [
     BrandModel(
       id: '1',
-      image: CustomImages.nike,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F374c8214-bab5-4998-b55f-1b239ab6c657.png?alt=media&token=ce6d7eaf-2a97-4862-a3a6-f84e6193e217",
       name: 'Nike',
       productsCount: 2,
       isFeatured: true,
     ),
     BrandModel(
       id: '2',
-      image: CustomImages.adidas,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F27b3c343-ac1e-432d-ac69-01a9bebf3d01.jpg?alt=media&token=ced6cb1b-610e-4432-b15f-541045fddecc",
       name: 'Adidas',
       productsCount: 2,
       isFeatured: true,
     ),
     BrandModel(
       id: '3',
-      image: CustomImages.apple,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F3ab33b39-1d13-4b55-a83c-f75a755e0762.jpg?alt=media&token=3d97c878-9cf7-44fb-9ee4-f81ffb9e09bd",
       name: 'Apple',
       productsCount: 8,
       isFeatured: true,
     ),
     BrandModel(
       id: '4',
-      image: CustomImages.bata,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F6d27c976-ceab-4160-8a88-8068739a14a1.png?alt=media&token=40fed8c2-f164-4532-b940-08fb5f2a3de4",
       name: 'Bata',
       productsCount: 4,
       isFeatured: true,
     ),
     BrandModel(
       id: '5',
-      image: CustomImages.bloody,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F86360cec-34d3-4161-8390-68bb8e9941d7.png?alt=media&token=b8e8b069-a80d-4c56-9832-e6719463abdf",
       name: 'Bloody',
       productsCount: 9,
       isFeatured: false,
     ),
     BrandModel(
       id: '6',
-      image: CustomImages.breakout,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F4faa40c7-d0c9-489d-b1e0-4f9308da999f.jpg?alt=media&token=7153e43f-5cde-410e-8ba5-2d72690466a3",
       name: 'Breakout',
       productsCount: 7,
       isFeatured: true,
     ),
     BrandModel(
       id: '7',
-      image: CustomImages.dariMooch,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F4c9b8689-ac32-4e2f-b8e3-e4c1aa863ddc.png?alt=media&token=0ea5f92b-e12f-4afc-9d6d-e899e885abbd",
       name: 'Dari Mooch',
       productsCount: 4,
       isFeatured: true,
     ),
     BrandModel(
       id: '8',
-      image: CustomImages.interwood,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2Fe460ad1b-1f15-400a-8d17-e9e59d0577e2.jpeg?alt=media&token=27c2a68a-c317-4c76-b689-7a35557aa692",
       name: 'Interwood',
       productsCount: 9,
       isFeatured: false,
     ),
     BrandModel(
       id: '9',
-      image: CustomImages.hp,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F986c1e2a-50a3-44d3-a481-3098561ee8b5.jpg?alt=media&token=f9dccf12-3121-4bdb-8d9b-72fa0752d1d7",
       name: 'HP',
       productsCount: 4,
       isFeatured: false,
     ),
     BrandModel(
       id: '10',
-      image: CustomImages.j,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2Fccc4948c-36bf-44de-83aa-6288b86588cf.png?alt=media&token=b72e4e4b-fc8f-4f05-b026-b1d59c260da3",
       name: 'J.',
       productsCount: 8,
       isFeatured: true,
     ),
     BrandModel(
       id: '11',
-      image: CustomImages.ndure,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F12c92858-250b-4dce-aaae-7913ef50bef7.png?alt=media&token=c09c21b5-5606-47cc-9ce6-797fabb08583",
       name: 'NDURE',
       productsCount: 4,
       isFeatured: true,
     ),
     BrandModel(
       id: '12',
-      image: CustomImages.northstar,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F0af614a7-4ba5-4876-8ce0-3ec618e58bb4.jpg?alt=media&token=b89b407b-b634-4bdf-88c1-a19ba1d52bf9",
       name: 'NorthStar',
       productsCount: 2,
       isFeatured: true,
     ),
     BrandModel(
       id: '13',
-      image: CustomImages.polo,
+      image:
+          "https://firebasestorage.googleapis.com/v0/b/multivendorapp-5f78e.appspot.com/o/Brands%20Images%2F0af614a7-4ba5-4876-8ce0-3ec618e58bb4.jpg?alt=media&token=b89b407b-b634-4bdf-88c1-a19ba1d52bf9",
       name: 'Polo',
       productsCount: 2,
       isFeatured: true,
@@ -470,7 +483,7 @@ class CustomDummyData {
         ProductVariationModel(
           id: '4',
           stock: 222,
-          price: 250,
+          price: 270,
           image: CustomImages.productImage4d,
           attributeValues: {'Color': 'Silver', 'Storage': '64GB'},
         ),
@@ -484,7 +497,7 @@ class CustomDummyData {
         ProductVariationModel(
           id: '6',
           stock: 11,
-          price: 350,
+          price: 330,
           image: CustomImages.productImage4e,
           attributeValues: {'Color': 'Silver', 'Storage': '256GB'},
         ),
@@ -603,7 +616,7 @@ class CustomDummyData {
         ProductVariationModel(
           id: '2',
           description: 'This is description of Blue 41 Size Shoes',
-          price: 59.99,
+          price: 80.99,
           stock: 10,
           image: CustomImages.productImage10,
           attributeValues: {'Size': '41'},
@@ -611,7 +624,7 @@ class CustomDummyData {
         ProductVariationModel(
           id: '3',
           description: 'This is description of Blue 42 Size Shoes',
-          price: 59.99,
+          price: 60.99,
           stock: 10,
           image: CustomImages.productImage10,
           attributeValues: {'Size': '42'},

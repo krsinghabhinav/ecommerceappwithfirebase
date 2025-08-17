@@ -10,6 +10,7 @@ class CustomProductTitle extends StatelessWidget {
     this.large,
     this.small,
     this.textoverflow,
+    this.color,
   });
 
   final String title;
@@ -19,6 +20,7 @@ class CustomProductTitle extends StatelessWidget {
   final double? large;
   final double? small;
   final TextOverflow? textoverflow;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class CustomProductTitle extends StatelessWidget {
       overflow: textoverflow ?? TextOverflow.ellipsis,
       textAlign: textAlign,
       style: TextStyle(
+        color: color,
         fontSize:
             isSmallSize
                 ? (small ?? 14) // fallback if small is null

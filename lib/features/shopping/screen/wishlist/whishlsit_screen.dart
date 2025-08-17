@@ -1,3 +1,4 @@
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:ecommerceappwithfirebase/utils/comman/customappbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,7 @@ class _WhishlsitScreenState extends State<WhishlsitScreen> {
             itemCout: 10,
             mainAxisExtent: Get.height * 0.32,
             itemBuilder: (context, index) {
-              return CustomCardVertical();
+              return CustomCardVertical(productData: ProductModel.empty(),);
             },
           ),
         ),

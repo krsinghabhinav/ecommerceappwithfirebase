@@ -1,3 +1,4 @@
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +38,7 @@ class CustomCategoryTab extends StatelessWidget {
           itemCout: 10,
           mainAxisExtent: Get.height * 0.32,
           itemBuilder: (context, index) {
-            return CustomCardVertical();
+            return CustomCardVertical(productData: ProductModel.empty(),);
           },
         ),
       ],

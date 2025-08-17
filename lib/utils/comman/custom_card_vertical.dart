@@ -1,24 +1,34 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:ecommerceappwithfirebase/utils/comman/CustomBrantTitleWithVerifyIcons.dart';
 import 'package:ecommerceappwithfirebase/utils/comman/custom_shap/rounded_container.dart';
 import 'package:ecommerceappwithfirebase/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+import '../../controller/product/product_controller.dart';
 import '../../features/productDetails/product_details.dart';
 import '../constants/custom_colorsd.dart';
 import 'CustomProductTitle.dart';
 import 'CustomproductPrice.dart';
 
 class CustomCardVertical extends StatelessWidget {
-  const CustomCardVertical({super.key});
+  final ProductModel productData;
+  const CustomCardVertical({super.key, required this.productData});
 
   @override
   Widget build(BuildContext context) {
+    final productController = Get.put(ProductController());
+
+    String? salePercentage = productController.calculateSalePrecentage(
+      productData.price,
+      productData.salePrice,
+    );
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GestureDetector(
         onTap: () {
-          Get.to(() => ProductDetailsScreen());
+          Get.to(() => ProductDetailsScreen(productModel: productData));
         },
         child: Container(
           width: Get.width * 0.45,
@@ -33,7 +43,7 @@ class CustomCardVertical extends StatelessWidget {
               Center(
                 child: CustomeRoundedContainer(
                   width: Get.width * 0.4,
-                  height: Get.height * 0.2,
+                  // height: Get.height * 0.2,
                   radius: 10,
                   backgroundColor: CustomeColors.white,
                   child: Stack(
@@ -42,26 +52,35 @@ class CustomCardVertical extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: Image(
-                            image: AssetImage("assets/products/product 34.png"),
+                            image: CachedNetworkImageProvider(
+                              productData.thumbnail,
+                            ),
                             fit: BoxFit.contain,
-                            height: 120,
+                            height: Get.height * 0.16,
                           ),
                         ),
                       ),
-                      Positioned(
-                        left: 5,
-                        top: 3,
-                        child: CustomeRoundedContainer(
-                          width: 40,
-                          height: 30,
-                          backgroundColor: CustomeColors.yellow,
-                          radius: 8,
-                          child: Center(child: Utils.customText("50%")),
+
+                      if (salePercentage != "0")
+                        Positioned(
+                          left: 1,
+                          top: 1,
+                          child: CustomeRoundedContainer(
+                            width: 40,
+                            height: 27,
+                            backgroundColor: CustomeColors.yellow,
+                            radius: 8,
+                            child: Center(
+                              child: Utils.customText(
+                                "${salePercentage}%",
+                                fontSize: 14,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
                       Positioned(
-                        top: 3,
-                        right: 3,
+                        top: 1,
+                        right: 1,
                         child: Container(
                           width: 36,
                           height: 36,
@@ -100,20 +119,27 @@ class CustomCardVertical extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomProductTitle(
-                      title: "iPhone 11 64GB",
+                      title: productData.title,
                       isSmallSize: false,
-                      large: 16,
+                      large: 14,
+                      maxlines: 2,
+                      color: Colors.grey.shade800,
                     ),
-                    CustomBrantTitleWithVerifyIcons(title: "Apple"),
-                    SizedBox(height: Get.height * 0.002),
+                    CustomBrantTitleWithVerifyIcons(
+                      title: productData.brand!.name,
+                    ),
+                    SizedBox(height: Get.height * 0.0025),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CustomproductPrice(
-                          price: "\$234-\$343",
+                          price:
+                              "${productController.getDisplayPrice(productData)}",
                           isLarge: true,
-                          lg: Get.height * 0.021,
+                          lg: Get.height * 0.02,
+                          color: Colors.grey.shade800,
                         ),
+
                         Container(
                           height: 35,
                           width: 45,

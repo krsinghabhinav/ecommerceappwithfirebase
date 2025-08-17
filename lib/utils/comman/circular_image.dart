@@ -38,7 +38,7 @@ class CustomCircularImage extends StatelessWidget {
 
     return Container(
       width: width,
-      height: height,
+      height: height ,
       padding: EdgeInsets.all(resolvedRadius),
       decoration: BoxDecoration(
         color:

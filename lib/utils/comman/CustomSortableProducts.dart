@@ -1,4 +1,5 @@
 
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -37,7 +38,7 @@ class CustomSortableProducts extends StatelessWidget {
             itemCout: 10,
             mainAxisExtent: Get.height * 0.32,
             itemBuilder: (context, index) {
-              return const CustomCardVertical();
+              return  CustomCardVertical(productData: ProductModel.empty(), );
             },
           ),
         ),

@@ -12,7 +12,7 @@ class CustomChoiceChip extends StatelessWidget {
   });
   final String title;
   final bool selected;
-  final Function(bool) onSelected;
+  final Function(bool)? onSelected;
   @override
   Widget build(BuildContext context) {
     bool isColor = CustomHelperFunction.getColor(title) != null;

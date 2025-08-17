@@ -1,6 +1,7 @@
 import 'package:ecommerceappwithfirebase/features/allproduct/all_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../../controller/product/product_controller.dart';
 import '../../../../utils/comman/CustomHorizontalCirculerCategoryCart.dart';
 import '../../../../utils/comman/GridLayout.dart';
 import '../../../../utils/constants/custom_colorsd.dart';
@@ -26,16 +27,18 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   late UserController userController;
-
+  late ProductController productController;
   @override
   void initState() {
     userController = Get.put(UserController());
+    productController = Get.put(ProductController());
     super.initState();
   }
 
   @override
   void dispose() {
     Get.delete<UserController>();
+    Get.delete<ProductController>();
     super.dispose();
   }
 
@@ -109,13 +112,24 @@ class _HomescreenState extends State<Homescreen> {
             const SizedBox(height: 15),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomGridLayout(
-                itemCout: 10,
-                mainAxisExtent: Get.height * 0.32,
-                itemBuilder: (context, index) {
-                  return const CustomCardVertical();
-                },
-              ),
+              child: Obx(() {
+                if (productController.isLoading.value) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (productController.productFeatureList.isEmpty) {
+                  return const Center(child: Text("No Product Found"));
+                }
+
+                return CustomGridLayout(
+                  itemCout: productController.productFeatureList.length,
+                  mainAxisExtent: Get.height * 0.32,
+                  itemBuilder: (context, index) {
+                    final productData =
+                        productController.productFeatureList[index];
+                    return CustomCardVertical(productData: productData);
+                  },
+                );
+              }),
             ),
           ],
         ),

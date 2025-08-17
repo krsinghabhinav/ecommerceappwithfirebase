@@ -13,6 +13,7 @@ import '../../model/brand_model.dart';
 import '../../model/category_model.dart';
 import '../../navigation_menubar.dart';
 import 'brand/brand_repositry.dart';
+import 'product/producr_repository.dart';
 
 class AuthenticationsRepoController extends GetxController {
   final storage = GetStorage();
@@ -30,7 +31,7 @@ class AuthenticationsRepoController extends GetxController {
     // checkAndUploadBanners();
     // // Get.put(BrandRepository()).uploadBrandImage(CustomDummyData.brands);
     // checkAndUploadBrands(); // ✅ fixed
-
+    // Get.put(ProductRepository()).uploadProducts(CustomDummyData.products);
     super.onReady();
   }
 
