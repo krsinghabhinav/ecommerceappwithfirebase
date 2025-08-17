@@ -284,22 +284,22 @@ class ProductRepository extends GetxController {
   }
 
   /// Fetch all featured products
-  Future<List<ProductModel>> showAllProducts() async {
+  Future<List<ProductModel>> showAllFeaturedProducts() async {
     final List<ProductModel> allProductList = [];
 
     try {
       isLoading.value = true;
 
       final querySnapshot =
-          await _db.collection(DatabaseKey.productsCollection).get();
+          await _db
+              .collection(DatabaseKey.productsCollection)
+              .where("isFeatured", isEqualTo: true)
+              .get();
 
       if (querySnapshot.docs.isNotEmpty) {
-        for (var doc in querySnapshot.docs) {
-          allProductList.add(ProductModel.fromSnapshot(doc));
-        }
-        // alProductList.addAll(
-        //   querySnapshot.docs.map((doc) => ProductModel.fromSnapshot(doc)),
-        // );
+        allProductList.addAll(
+          querySnapshot.docs.map((doc) => ProductModel.fromSnapshot(doc)),
+        );
       } else {
         debugPrint("ℹ️ No featured products found in Firestore");
       }
@@ -309,6 +309,28 @@ class ProductRepository extends GetxController {
       debugPrint("📌 StackTrace: $stackTrace");
     } finally {
       isLoading.value = false;
+    }
+
+    return allProductList;
+  }
+
+  Future<List<ProductModel>> fetchAllProductByQuery(Query query) async {
+    final List<ProductModel> allProductList = [];
+
+    try {
+      final querySnapshot = await query.get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        allProductList.addAll(
+          querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)),
+        );
+      } else {
+        debugPrint("ℹ️ No featured products found in Firestore");
+      }
+    } catch (e, stackTrace) {
+      Utils.showToast("❌ Error fetching featured products");
+      debugPrint("🔥 Firestore error: $e");
+      debugPrint("📌 StackTrace: $stackTrace");
     }
 
     return allProductList;

@@ -105,7 +105,12 @@ class _HomescreenState extends State<Homescreen> {
                 title: "Popular Product",
                 buttonTitle: "View all",
                 onPressed: () {
-                  Get.to(() => AllProductScreen());
+                  Get.to(
+                    () => AllProductScreen(
+                      title: "Popular Product",
+                      futureMethod: productController.getAllFeatureProduct(),
+                    ),
+                  );
                 },
               ),
             ),

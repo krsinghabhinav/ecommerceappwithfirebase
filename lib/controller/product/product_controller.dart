@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class ProductController extends GetxController {
   var isLoading = false.obs;
   RxList<ProductModel> productFeatureList = <ProductModel>[].obs;
-  RxList<ProductModel> allProductList = <ProductModel>[].obs;
+  RxList<ProductModel> allFeatureProductList = <ProductModel>[].obs;
   RxDouble percentage = 0.0.obs;
   ProductRepository productRepo = Get.put(ProductRepository());
 
@@ -78,17 +78,23 @@ class ProductController extends GetxController {
     return stock > 0 ? "In Stock" : "Out of Stock";
   }
 
-  Future<void> getAllProduct() async {
-    isLoading.value = true;
+  Future<List<ProductModel>> getAllFeatureProduct() async {
+  
+
     try {
-      allProductList.clear();
-      final product = await productRepo.showAllProducts();
-      allProductList.assignAll(product);
-      print(" Show All Product : $product");
-    } catch (e) {
-      print("❌ Error in getProductData: $e");
-    } finally {
-      isLoading.value = false; // always reset
-    }
+      // Call repo method to fetch products
+      final List<ProductModel> productData =
+          await productRepo.showAllFeaturedProducts();
+
+      // Debug log
+      print("✅ Product Data: ${productData.length} items fetched");
+
+      return productData;
+    } catch (e, stackTrace) {
+      // Log both error and stack trace for debugging
+      print("❌ Error in getAllFeatureProduct: $e");
+      print(stackTrace);
+      return [];
+    } 
   }
 }
