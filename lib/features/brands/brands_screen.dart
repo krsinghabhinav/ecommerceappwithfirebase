@@ -41,14 +41,19 @@ class _BrandsScreenState extends State<BrandsScreen> {
             return Center(child: Text(" Brand not found"));
           }
           return CustomGridLayout(
-            itemCout: brandController.brandList.length,
+            itemCount: brandController.brandList.length,
             mainAxisExtent: 88,
             itemBuilder: (context, index) {
               BrandModel brandModel = brandController.brandList[index];
               return customBrandCard(
                 brandModel: brandModel,
                 onTab: () {
-                  Get.to(() => BrandProducrScreen(brandModel: brandModel));
+                  Get.to(
+                    () => BrandProducrScreen(
+                      brandModel: brandModel,
+                      title: brandModel.name,
+                    ),
+                  );
                 },
               );
             },

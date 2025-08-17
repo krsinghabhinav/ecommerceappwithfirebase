@@ -52,9 +52,16 @@ class CustomCardVertical extends StatelessWidget {
                         child: Padding(
                           padding: const EdgeInsets.only(top: 15),
                           child: Image(
-                            image: CachedNetworkImageProvider(
-                              productData.thumbnail,
-                            ),
+                            image:
+                                productData.thumbnail != null &&
+                                        productData.thumbnail.isNotEmpty
+                                    ? CachedNetworkImageProvider(
+                                      productData.thumbnail,
+                                    )
+                                    : const AssetImage(
+                                          "assets/images/placeholder.png",
+                                        )
+                                        as ImageProvider,
                             fit: BoxFit.contain,
                             height: Get.height * 0.16,
                           ),
@@ -119,14 +126,14 @@ class CustomCardVertical extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     CustomProductTitle(
-                      title: productData.title,
+                      title: productData.title ?? "Untitled Product",
                       isSmallSize: false,
                       large: 14,
                       maxlines: 2,
                       color: Colors.grey.shade800,
                     ),
                     CustomBrantTitleWithVerifyIcons(
-                      title: productData.brand!.name,
+                      title: productData.brand?.name ?? "Unknown Brand",
                     ),
                     SizedBox(height: Get.height * 0.0025),
                     Row(
@@ -134,7 +141,7 @@ class CustomCardVertical extends StatelessWidget {
                       children: [
                         CustomproductPrice(
                           price:
-                              "${productController.getDisplayPrice(productData)}",
+                              "${productController.getDisplayPrice(productData) ?? "0"}",
                           isLarge: true,
                           lg: Get.height * 0.02,
                           color: Colors.grey.shade800,

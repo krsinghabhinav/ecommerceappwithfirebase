@@ -16,14 +16,21 @@ class customBrandCard extends StatelessWidget {
     this.width,
     required this.brandModel,
   });
+
   final bool showBorder;
   final VoidCallback? onTab;
   final double? height;
   final double? width;
-
   final BrandModel brandModel;
+
   @override
   Widget build(BuildContext context) {
+    // ✅ Safe image URL with fallback
+    final String safeImage =
+        (brandModel.image != null && brandModel.image!.isNotEmpty)
+            ? brandModel.image!
+            : "https://via.placeholder.com/150";
+
     return Padding(
       padding: const EdgeInsets.only(left: 5),
       child: GestureDetector(
@@ -36,10 +43,10 @@ class customBrandCard extends StatelessWidget {
           backgroundColor: Colors.transparent,
           child: Row(
             children: [
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
               CustomeRoundedImage(
                 borderRadius: 10,
-                image: brandModel.image,
+                image: safeImage, // ✅ safe image
                 width: 50,
                 isNetworkImage: true,
               ),
@@ -55,12 +62,12 @@ class customBrandCard extends StatelessWidget {
                           child: CustomProductTitle(
                             maxlines: 1,
                             textoverflow: TextOverflow.ellipsis,
-                            title: brandModel.name,
+                            title: brandModel.name ?? "Unknown Brand",
                             isSmallSize: false,
                             large: 16,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Icon(
                           Icons.verified,
                           size: 16,
@@ -72,14 +79,14 @@ class customBrandCard extends StatelessWidget {
                     CustomProductTitle(
                       maxlines: 1,
                       textoverflow: TextOverflow.ellipsis,
-                      title: "${brandModel.productsCount} Product",
+                      title: "${brandModel.productsCount ?? 0} Product",
                       isSmallSize: true,
                       small: 14,
                     ),
                   ],
                 ),
               ),
-              SizedBox(width: 4),
+              const SizedBox(width: 4),
             ],
           ),
         ),

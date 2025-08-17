@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class ProductController extends GetxController {
   var isLoading = false.obs;
   RxList<ProductModel> productFeatureList = <ProductModel>[].obs;
+  RxList<ProductModel> allProductList = <ProductModel>[].obs;
   RxDouble percentage = 0.0.obs;
   ProductRepository productRepo = Get.put(ProductRepository());
 
@@ -75,5 +76,19 @@ class ProductController extends GetxController {
 
   String getProductStatusStock(int stock) {
     return stock > 0 ? "In Stock" : "Out of Stock";
+  }
+
+  Future<void> getAllProduct() async {
+    isLoading.value = true;
+    try {
+      allProductList.clear();
+      final product = await productRepo.showAllProducts();
+      allProductList.assignAll(product);
+      print(" Show All Product : $product");
+    } catch (e) {
+      print("❌ Error in getProductData: $e");
+    } finally {
+      isLoading.value = false; // always reset
+    }
   }
 }

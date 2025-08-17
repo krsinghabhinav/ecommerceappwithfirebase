@@ -1,12 +1,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerceappwithfirebase/model/brand_model.dart';
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 
 import '../../../common/key/database_key.dart';
 import '../../../utils/helpers/custom_helper_function.dart';
 import '../../../utils/utils.dart';
+import '../product/producr_repository.dart';
 
 class BrandRepository extends GetxController {
   static BrandRepository get instance => Get.find();
@@ -70,4 +72,5 @@ class BrandRepository extends GetxController {
     }
     return brandList;
   }
+
 }

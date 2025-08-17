@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import '../../../../utils/comman/custom_search_bar.dart';
 import '../../../../utils/comman/custom_section_heading_text.dart';
 import '../../../../utils/utils.dart';
+import '../../../brands/brand_producr_screen.dart';
 import '../../../brands/brands_screen.dart';
 import '../home/widgets/CustomCategoryTab.dart';
 import 'widgets/CustomTabBar.dart';
@@ -75,7 +76,17 @@ class _StoreScreenState extends State<StoreScreen> {
                             itemBuilder: (context, index) {
                               BrandModel brandData =
                                   brandController.featuerList[index];
-                              return customBrandCard(brandModel: brandData);
+                              return customBrandCard(
+                                brandModel: brandData,
+                                onTab: () {
+                                  Get.to(
+                                    () => BrandProducrScreen(
+                                      brandModel: brandData,
+                                      title: brandData.name,
+                                    ),
+                                  );
+                                },
+                              );
                             },
                           );
                         }),

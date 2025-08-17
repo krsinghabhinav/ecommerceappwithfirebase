@@ -1,96 +1,3 @@
-// import 'package:ecommerceappwithfirebase/model/product_model.dart';
-// import 'package:ecommerceappwithfirebase/model/product_variation_model.dart';
-// import 'package:get/get.dart';
-
-// import 'product_image_controller.dart';
-
-// class ProductVariationController extends GetxController {
-//   /// User ke selected attributes store honge is map me
-//   /// Example: { "Color": "Red", "Size": "M" }
-//   RxMap<String, dynamic> selectedAttributes = <String, dynamic>{}.obs;
-//   ProductImageController productImageController = Get.put(
-//     ProductImageController(),
-//   );
-//   RxString variationStockStatus = ''.obs;
-//   Rx<ProductVariationModel> selectedVairation =
-//       ProductVariationModel.empty().obs;
-
-//   void onAttributeSelected(
-//     ProductModel productModel,
-//     attributeName,
-//     attributeValue,
-//   ) {
-//     // ✅ Step 1: Existing attributes ko ek naye Map me copy karna
-//     Map<String, dynamic> seletcAtrtibutes = Map<String, dynamic>.from(
-//       selectedAttributes,
-//     );
-
-//     // ✅ Step 2: User ka naya selection update karna
-//     // Example: { "Color": "Red" }
-//     seletcAtrtibutes[attributeName] = attributeValue;
-
-//     // ✅ Step 3: Observable Map me update karna
-//     selectedAttributes[attributeName] = attributeValue;
-
-//     // ✅ Step 4: Ab product ke variations me se wo variation dhoondna
-//     // jo user ke selectedAttributes se match kare
-//     ProductVariationModel selectVariation = productModel.productVariations!
-//         .firstWhere(
-//           (variation) => isSameAttributeValues(
-//             variation.attributeValues,
-//             selectedAttributes,
-//           ),
-//         );
-
-//     /// Example:
-//     /// productVariations = [
-//     ///   { "Color": "Red", "Size": "M" },
-//     ///   { "Color": "Green", "Size": "L" }
-//     /// ]
-//     ///
-//     /// Agar user ne { "Color": "Red", "Size": "M" } select kiya hai
-//     /// to selectedVariation wahi variation hoga
-//     ///
-//     if (selectVariation.image.isNotEmpty) {
-//       productImageController.selectedproductImage.value = selectVariation.image;
-//     }
-
-//     selectedVairation.value = selectVariation;
-//     getProductVariationStock();
-//   }
-
-//   /// Ye function check karega ki variation ka attributes
-//   /// user ke selectedAttributes ke sath match karte hain ya nahi
-//   bool isSameAttributeValues(
-//     Map<String, dynamic> variationAttributes,
-//     Map<String, dynamic> selectedAttribute,
-//   ) {
-//     // ⚠️ Tumhari code me yaha ek choti si bug hai:
-//     // Tum "selectedAttributes.length" use kar rahe ho instead of parameter "selectedAttribute.length"
-//     // Isse kabhi kabhi galat result aa sakta hai.
-
-//     // ✅ Corrected version
-//     if (variationAttributes.length != selectedAttribute.length) return false;
-
-//     // ✅ Har key ka value match karna
-//     for (final key in variationAttributes.keys) {
-//       // ⚠️ Tumne yaha likha tha:
-//       // if (variationAttributes[key] != variationAttributes[key]) return false;
-//       // Ye hamesha false return karega, kyunki key apne aap se hi compare ho raha tha 😅
-
-//       // ✅ Correct version
-//       if (variationAttributes[key] != selectedAttribute[key]) return false;
-//     }
-//     return true;
-//   }
-
-//   void getProductVariationStock() {
-//     // Ye function product variation ke stock ko check karega
-
-//     variationStockStatus.value =
-//         selectedVairation.value.stock > 0 ? "In Stock" : "Out of Stock";
-//   }
-// }
 import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:ecommerceappwithfirebase/model/product_variation_model.dart';
 import 'package:ecommerceappwithfirebase/utils/constants/custom_text.dart';
@@ -106,7 +13,7 @@ class ProductVariationController extends GetxController {
   /// 🔹 Product images ke liye ek aur controller inject kar rahe hain
   ProductImageController productImageController = Get.put(
     ProductImageController(),
-  );
+  );  
 
   /// 🔹 Variation ka stock status store karne ke liye observable string
   /// Example: "In Stock" ya "Out of Stock"
@@ -117,7 +24,7 @@ class ProductVariationController extends GetxController {
       ProductVariationModel.empty().obs;
 
   /// 🔹 Ye function tab call hoga jab user koi attribute select karega
-  void onAttributeSelected(
+  /*   void onAttributeSelected(
     ProductModel productModel,
     String attributeName,
     dynamic attributeValue,
@@ -147,6 +54,56 @@ class ProductVariationController extends GetxController {
     if (matchedVariation.image.isNotEmpty) {
       productImageController.selectedproductImage.value =
           matchedVariation.image;
+    }
+
+    // ✅ Step 6: Selected variation ko update karo
+    selectedVariation.value = matchedVariation;
+
+    // ✅ Step 7: Stock status update karo
+    getProductVariationStock();
+  }
+ */
+
+  void onAttributeSelected(
+    ProductModel productModel,
+    String attributeName,
+    dynamic attributeValue,
+  ) {
+    // ✅ Step 1: Pehle existing attributes ka ek copy banao
+    Map<String, dynamic> tempAttributes = Map<String, dynamic>.from(
+      selectedAttributes,
+    );
+
+    // ✅ Step 2: User ka naya selection update karo
+    tempAttributes[attributeName] = attributeValue;
+
+    // ✅ Step 3: Observable map ko update karo
+    selectedAttributes[attributeName] = attributeValue;
+
+    // ✅ Step 4: Matching variation dhoondne ke liye for loop ka use karo
+    ProductVariationModel matchedVariation = ProductVariationModel.empty();
+
+    for (ProductVariationModel variation
+        in productModel.productVariations ?? []) {
+      if (isSameAttributeValues(
+        variation.attributeValues,
+        selectedAttributes,
+      )) {
+        matchedVariation = variation;
+        break; // ✅ ek match milte hi loop stop kar do
+      }
+    }
+
+    // ✅ Step 5: Agar variation ka image hai to usse ProductImageController me update karo
+    if (matchedVariation.image.isNotEmpty) {
+      productImageController.selectedproductImage.value =
+          matchedVariation.image;
+    } else {
+      // Agar image empty ho to product ki thumbnail ya pehle se selected image use ho
+      productImageController.selectedproductImage.value =
+          productModel.thumbnail.isNotEmpty
+              ? productModel.thumbnail
+              : productImageController.selectedproductImage.value;
     }
 
     // ✅ Step 6: Selected variation ko update karo
@@ -189,7 +146,7 @@ class ProductVariationController extends GetxController {
   ///
   /// getAttributeAvailabelityInVariation(variations, "Color")
   /// return karega: { "Red", "Green" } (kyunki dono ke stock > 0 hain)
-  Set<String> getAttributeAvailabelityInVariation(
+  /*   Set<String> getAttributeAvailabelityInVariation(
     List<ProductVariationModel> variations,
     String attributeName,
   ) {
@@ -213,6 +170,43 @@ class ProductVariationController extends GetxController {
                   variation.attributeValues[attributeName].toString(),
             )
             .toSet();
+
+    return availableAttributeValues;
+  }
+ */
+
+  Set<String> getAttributeAvailabelityInVariation(
+    List<ProductVariationModel> variations,
+    String attributeName,
+  ) {
+    // ✅ Available attribute values ko store karne ke liye Set
+    final Set<String> availableAttributeValues = {};
+
+    // ✅ Har variation par loop
+    for (var variation in variations) {
+      // 🔹 Check 1: attribute exist karta hai?
+      if (variation.attributeValues.containsKey(attributeName)) {
+        final value = variation.attributeValues[attributeName];
+
+        // 🔹 Check 2: attribute value null ya empty to nahi?
+        if (value != null && value.toString().isNotEmpty) {
+          // 🔹 Check 3: stock > 0 hona chahiye
+          if (variation.stock > 0) {
+            // ✅ Sab condition pass → value add karo
+            availableAttributeValues.add(value.toString());
+          } else {
+            // ❌ stock 0 ya negative hai
+            print("Stock unavailable for $attributeName : $value");
+          }
+        } else {
+          // ❌ attribute ka value null ya empty hai
+          print("No valid value found for $attributeName");
+        }
+      } else {
+        // ❌ attribute exist hi nahi karta
+        print("$attributeName not found in variation");
+      }
+    }
 
     return availableAttributeValues;
   }

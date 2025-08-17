@@ -10,7 +10,7 @@ class CustomVerticalProductShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomGridLayout(
-      itemCout: itemCount,
+      itemCount: itemCount,
       itemBuilder:
           (context, index) => const SizedBox(
             width: 180,

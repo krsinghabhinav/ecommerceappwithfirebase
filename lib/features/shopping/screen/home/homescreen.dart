@@ -121,7 +121,7 @@ class _HomescreenState extends State<Homescreen> {
                 }
 
                 return CustomGridLayout(
-                  itemCout: productController.productFeatureList.length,
+                  itemCount: productController.productFeatureList.length,
                   mainAxisExtent: Get.height * 0.32,
                   itemBuilder: (context, index) {
                     final productData =

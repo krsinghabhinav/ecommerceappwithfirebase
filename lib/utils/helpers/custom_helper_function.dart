@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 
-class CustomHelperFunction{
+class CustomHelperFunction {
   CustomHelperFunction._();
 
   static Color? getColor(String value) {
@@ -18,10 +18,9 @@ class CustomHelperFunction{
       return Colors.red;
     } else if (value == 'Blue') {
       return Colors.blue;
-    } else if(value == 'Dark Blue'){
+    } else if (value == 'Dark Blue') {
       return Colors.blueGrey;
-    }
-    else if (value == 'Pink') {
+    } else if (value == 'Pink') {
       return Colors.pink;
     } else if (value == 'Grey') {
       return Colors.grey;
@@ -41,13 +40,12 @@ class CustomHelperFunction{
       return Colors.teal;
     } else if (value == 'Indigo') {
       return Colors.indigo;
-    } else if(value == 'Silver') {
+    } else if (value == 'Silver') {
       return Colors.grey;
-    }else {
+    } else {
       return null;
     }
   }
-
 
   static bool isDarkMode(BuildContext context) {
     return Theme.of(context).brightness == Brightness.dark;
@@ -56,11 +54,14 @@ class CustomHelperFunction{
   static String getGreetingMessage() {
     final hour = DateTime.now().hour;
 
-    if (hour >= 5 && hour < 12) { // 5AM to 12PM
+    if (hour >= 5 && hour < 12) {
+      // 5AM to 12PM
       return 'Good Morning';
-    } else if (hour >= 12 && hour < 16) { // 12PM to 4PM
+    } else if (hour >= 12 && hour < 16) {
+      // 12PM to 4PM
       return 'Good Afternoon';
-    } else if (hour >= 16 && hour < 19) { // 5PM to 7PM
+    } else if (hour >= 16 && hour < 19) {
+      // 5PM to 7PM
       return 'Good Evening';
     } else {
       return 'Good Night';
@@ -82,8 +83,34 @@ class CustomHelperFunction{
     return file;
   }
 
-  static String getFormattedDate(DateTime date, {String format = 'dd MMM yyyy'}) {
+  static String getFormattedDate(
+    DateTime date, {
+    String format = 'dd MMM yyyy',
+  }) {
     return DateFormat(format).format(date);
   }
 
+  static Widget? checkMultiRecordState<T>({
+    required AsyncSnapshot<List<T>> snapshot,
+    Widget? loader,
+    Widget? error,
+    Widget? nothingFound,
+  }) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      if (loader != null) return loader;
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
+      if (nothingFound != null) return nothingFound;
+      return const Center(child: Text('No Data Found!'));
+    }
+
+    if (snapshot.hasError) {
+      if (error != null) return error;
+      return const Center(child: Text('Something went wrong.'));
+    }
+
+    return null;
+  }
 }

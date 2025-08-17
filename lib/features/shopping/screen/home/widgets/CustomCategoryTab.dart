@@ -34,11 +34,11 @@ class CustomCategoryTab extends StatelessWidget {
           buttonTitle: "View All",
         ),
 
-        CustomGridLayout(   
-          itemCout: 10,
+        CustomGridLayout(
+          itemCount: 10,
           mainAxisExtent: Get.height * 0.32,
           itemBuilder: (context, index) {
-            return CustomCardVertical(productData: ProductModel.empty(),);
+            return CustomCardVertical(productData: ProductModel.empty());
           },
         ),
       ],

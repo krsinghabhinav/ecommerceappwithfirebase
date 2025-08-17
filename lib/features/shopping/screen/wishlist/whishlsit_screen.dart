@@ -37,10 +37,10 @@ class _WhishlsitScreenState extends State<WhishlsitScreen> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: CustomGridLayout(
-            itemCout: 10,
+            itemCount: 10,
             mainAxisExtent: Get.height * 0.32,
             itemBuilder: (context, index) {
-              return CustomCardVertical(productData: ProductModel.empty(),);
+              return CustomCardVertical(productData: ProductModel.empty());
             },
           ),
         ),

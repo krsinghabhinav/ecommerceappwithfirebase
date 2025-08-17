@@ -164,6 +164,8 @@ class ProductModel {
     price: 0,
     thumbnail: '',
     productType: '',
+    salePrice: 0,
+    brand: null,
   );
 
   Map<String, dynamic> toJson() {
