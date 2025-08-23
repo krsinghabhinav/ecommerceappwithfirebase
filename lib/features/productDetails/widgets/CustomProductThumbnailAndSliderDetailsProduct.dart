@@ -6,9 +6,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../controller/product/product_image_controller.dart';
+import '../../../utils/comman/circular_icon.dart';
 import '../../../utils/comman/customappbar.dart';
 import '../../../utils/comman/custome_rounded_image.dart';
 import '../../../utils/constants/custom_colorsd.dart';
+import '../../shopping/screen/wishlist/favourite/favourite_icons.dart';
 
 class CustomProductThumbnailAndSliderDetailsProduct extends StatelessWidget {
   final ProductModel productModel;
@@ -96,8 +98,7 @@ class CustomProductThumbnailAndSliderDetailsProduct extends StatelessWidget {
 
         CustomAppbar(
           showaBackArrow: true,
-
-          action: [Icon(Iconsax.heart5, color: Colors.red)],
+          action: [CustomeFavouriteIcons(productId: productModel.id)],
         ),
       ],
     );

@@ -381,4 +381,43 @@ class ProductRepository extends GetxController {
     }
     return productBrandList;
   }
+
+  /// Fetch all favourite products
+  Future<List<ProductModel>> getFavouritesProducts(
+    List<String> productsIds,
+  ) async {
+    final List<ProductModel> productList = [];
+    try {
+      // 🔹 Prevent Firestore crash when productsIds is empty
+      if (productsIds.isEmpty) {
+        debugPrint("ℹ️ No product IDs provided for favourites");
+        return [];
+      }
+
+      isLoading.value = true;
+
+      final querySnapshot =
+          await _db
+              .collection(DatabaseKey.productsCollection)
+              .where(FieldPath.documentId, whereIn: productsIds)
+              .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        productList.addAll(
+          querySnapshot.docs.map((doc) => ProductModel.fromSnapshot(doc)),
+        );
+      } else {
+        debugPrint("ℹ️ No favourite products found in Firestore");
+      }
+
+      return productList;
+    } catch (e, stackTrace) {
+      Utils.showToast("❌ Error fetching favourite products");
+      debugPrint("🔥 Firestore error: $e");
+      debugPrint("📌 StackTrace: $stackTrace");
+      return [];
+    } finally {
+      isLoading.value = false;
+    }
+  }
 }

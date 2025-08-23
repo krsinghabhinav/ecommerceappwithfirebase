@@ -3,7 +3,6 @@ import 'package:ecommerceappwithfirebase/features/shopping/screen/home/homescree
 import 'package:ecommerceappwithfirebase/utils/constants/custom_colorsd.dart';
 import 'package:ecommerceappwithfirebase/utils/helpers/custom_helper_function.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -66,7 +65,7 @@ class NavigationController extends GetxController {
   List<Widget> screens = [
     Homescreen(),
     StoreScreen(),
-    WhishlsitScreen(),
+    WishlistScreen(),
     ProfileScreen(),
     CartScreen(),
   ];

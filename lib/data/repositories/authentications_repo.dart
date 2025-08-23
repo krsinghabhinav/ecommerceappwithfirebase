@@ -190,7 +190,7 @@ class AuthenticationsRepoController extends GetxController {
   //   return newList;
   // }
 
-  void screenRedirect() async {
+  Future<void> screenRedirect() async {
     await Future.delayed(const Duration(seconds: 3)); // Wait for splash
 
     // Set default value if not present
@@ -201,6 +201,7 @@ class AuthenticationsRepoController extends GetxController {
     if (user != null) {
       if (user.emailVerified) {
         Get.offAll(() => NavigationMenubar());
+        await GetStorage.init(user.uid);
       } else {
         Get.offAll(() => VerityEamilAddress());
       }

@@ -8,9 +8,11 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import '../../controller/product/product_controller.dart';
 import '../../features/productDetails/product_details.dart';
+import '../../features/shopping/screen/wishlist/favourite/favourite_icons.dart';
 import '../constants/custom_colorsd.dart';
 import 'CustomProductTitle.dart';
 import 'CustomproductPrice.dart';
+import 'circular_icon.dart';
 
 class CustomCardVertical extends StatelessWidget {
   final ProductModel productData;
@@ -103,14 +105,8 @@ class CustomCardVertical extends StatelessWidget {
                             ],
                           ),
                           child: Center(
-                            child: IconButton(
-                              padding: EdgeInsets.zero,
-                              icon: Icon(
-                                Iconsax.heart5,
-                                size: 30,
-                                color: Colors.red,
-                              ),
-                              onPressed: () {},
+                            child: CustomeFavouriteIcons(
+                              productId: productData.id,
                             ),
                           ),
                         ),

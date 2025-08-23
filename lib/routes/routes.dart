@@ -21,7 +21,7 @@ class CustomRoutesApp {
     // ... other screens
     GetPage(name: CustomRoutes.home, page: () => const NavigationMenubar()),
     GetPage(name: CustomRoutes.store, page: () => const StoreScreen()),
-    GetPage(name: CustomRoutes.wishlist, page: () => const WhishlsitScreen()),
+    GetPage(name: CustomRoutes.wishlist, page: () => const WishlistScreen()),
     GetPage(name: CustomRoutes.profile, page: () => const ProfileScreen()),
     GetPage(name: CustomRoutes.order, page: () => const OrderScreen()),
     GetPage(name: CustomRoutes.checkout, page: () => const CheckOutScreen()),

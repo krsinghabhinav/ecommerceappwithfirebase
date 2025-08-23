@@ -1,11 +1,14 @@
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/comman/CustomBrantTitleWithVerifyIcons.dart';
+import '../../../utils/comman/circular_icon.dart';
 import '../../../utils/comman/custom_shap/rounded_container.dart';
 import '../../../utils/comman/custome_rounded_image.dart';
 import '../../../utils/constants/custom_colorsd.dart';
 import '../../../utils/utils.dart';
+import '../../shopping/screen/wishlist/favourite/favourite_icons.dart';
 
 class CustomProductCardHorizontal extends StatelessWidget {
   const CustomProductCardHorizontal({super.key});
@@ -67,15 +70,7 @@ class CustomProductCardHorizontal extends StatelessWidget {
                         ],
                       ),
                       child: Center(
-                        child: IconButton(
-                          padding: EdgeInsets.zero,
-                          icon: Icon(
-                            Iconsax.heart5,
-                            size: 30,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {},
-                        ),
+                        child: CustomeFavouriteIcons(productId: ""),
                       ),
                     ),
                   ),
