@@ -1,5 +1,8 @@
+import 'package:ecommerceappwithfirebase/controller/product/allproduct_controller.dart';
 import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'GridLayout.dart';
 import 'custom_card_vertical.dart';
 
@@ -16,6 +19,8 @@ class _CustomSortableProductsState extends State<CustomSortableProducts> {
 
   @override
   Widget build(BuildContext context) {
+    final allProductController = Get.put(AllproductController());
+    allProductController.assignProduct(widget.products);
     return Column(
       children: [
         Padding(
@@ -23,12 +28,10 @@ class _CustomSortableProductsState extends State<CustomSortableProducts> {
           child: SizedBox(
             height: 50,
             child: DropdownButtonFormField<String>(
-              value: selectedFilter,
+              value: allProductController.selectedSortOption.value,
               decoration: const InputDecoration(border: OutlineInputBorder()),
               onChanged: (value) {
-                setState(() {
-                  selectedFilter = value;
-                });
+                allProductController.sortProducts(value!);
               },
               hint: const Text("Filter"),
               items:
@@ -46,12 +49,16 @@ class _CustomSortableProductsState extends State<CustomSortableProducts> {
         const SizedBox(height: 20),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
-          child: CustomGridLayout(
-            itemCount: widget.products.length,
-            mainAxisExtent: MediaQuery.of(context).size.height * 0.32,
-            itemBuilder: (context, index) {
-              return CustomCardVertical(productData: widget.products[index]);
-            },
+          child: Obx(
+            () => CustomGridLayout(
+              itemCount: allProductController.products.length,
+              mainAxisExtent: MediaQuery.of(context).size.height * 0.32,
+              itemBuilder: (context, index) {
+                return CustomCardVertical(
+                  productData: allProductController.products[index],
+                );
+              },
+            ),
           ),
         ),
       ],

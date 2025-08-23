@@ -27,7 +27,7 @@ class customBrandCard extends StatelessWidget {
   Widget build(BuildContext context) {
     // ✅ Safe image URL with fallback
     final String safeImage =
-        (brandModel.image != null && brandModel.image!.isNotEmpty)
+        (brandModel.image != null && brandModel.image.isNotEmpty)
             ? brandModel.image!
             : "https://via.placeholder.com/150";
 

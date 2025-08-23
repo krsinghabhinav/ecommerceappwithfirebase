@@ -1,4 +1,6 @@
 import 'package:ecommerceappwithfirebase/data/repositories/category/category_respositry.dart';
+import 'package:ecommerceappwithfirebase/data/repositories/product/producr_repository.dart';
+import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:ecommerceappwithfirebase/utils/utils.dart';
 import 'package:get/get.dart';
 import '../model/category_model.dart';
@@ -6,10 +8,10 @@ import '../model/category_model.dart';
 class CategoryController extends GetxController {
   var isLoading = false.obs;
 
+  final productRepository = Get.put(ProductRepository());
   final categoryRespositry = Get.put(CategoryRespositry());
   RxList<CategoryModel> categoriesList = <CategoryModel>[].obs;
   RxList<CategoryModel> featuredCategories = <CategoryModel>[].obs;
-
   @override
   void onInit() {
     categoriesData();
@@ -40,6 +42,24 @@ class CategoryController extends GetxController {
       }
     } catch (e) {
       Utils.showToast("❌ Error: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<List<ProductModel>> getCategoriesProduct({
+    required String categoryId,
+    int limit = -1,
+  }) async {
+    try {
+      final product = productRepository.getProductsFroCategories(
+        categoryId: categoryId,
+        limit: limit,
+      );
+      return product;
+    } catch (e) {
+      Utils.showToast("❌ Error: $e");
+      return [];
     } finally {
       isLoading.value = false;
     }

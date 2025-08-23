@@ -11,6 +11,7 @@ class BrandsControllers extends GetxController {
   var isLoading = false.obs;
   final brandRepo = Get.put(BrandRepository());
   RxList<BrandModel> brandList = <BrandModel>[].obs;
+  RxList<BrandModel> brandListcategories = <BrandModel>[].obs;
   RxList<BrandModel> featuerList = <BrandModel>[].obs;
   RxList<ProductModel> brandProductList = <ProductModel>[].obs;
   final productRepository = Get.put(ProductRepository());
@@ -35,11 +36,11 @@ class BrandsControllers extends GetxController {
   }
 
   /// Fetch Products of a Brand
-  Future<List<ProductModel>> getBrandProduct(String brandId) async {
+  Future<List<ProductModel>> getBrandProduct(String brandId, {int limit = -1}) async {
     try {
-      isLoading.value = true;
       final products = await productRepository.getProductsFroBrand(
         brandId: brandId,
+        limit: limit,
       );
       brandProductList.assignAll(products); // updates observable list
       print("✅ Products fetched for Brand $brandId : ${products.length}");
@@ -47,14 +48,57 @@ class BrandsControllers extends GetxController {
     } catch (e) {
       Utils.showToast("❌ Error while fetching products: $e");
       return []; // return empty list if error
-    } finally {
-      isLoading.value = false;
-    }
+    } finally {}
   }
 
   @override
   void onInit() {
     getBrandData();
     super.onInit();
+  }
+
+  // get brans for spacific categories
+
+  // Future<List<BrandModel>?> getBrandForCategory(String categoryId) async {
+  //   try {
+  //     final brand = await brandRepo.frtchBrandForCategories(categoryId);
+  //     if (brand != null) {
+  //       brandListcategories.assignAll(brand);
+  //     } else {
+  //       brandListcategories.clear();
+  //     }
+  //   } catch (e) {
+  //     Utils.showToast("❌ Error while fetching brand:categories $e");
+  //     brandListcategories.clear();
+  //   }
+  // }
+
+  Future<void> getBrandForCategory(String categoryId) async {
+    try {
+      final brands = await brandRepo.frtchBrandForCategories(categoryId);
+
+      // Pehle clear kar do
+      brandListcategories.clear();
+
+      if (brands != null) {
+        for (int i = 0; i < brands.length; i++) {
+          final brand = brands[i];
+
+          if (brand.id.isNotEmpty) {
+            // Agar brand ka id valid hai to add karo
+            brandListcategories.add(brand);
+          } else if (brand.id.isEmpty) {
+            // Agar id empty hai to skip kar do
+            continue;
+          }
+        }
+      } else if (brands == null) {
+        // Agar pura list null mila
+        brandListcategories.clear();
+      }
+    } catch (e) {
+      Utils.showToast("❌ Error while fetching brand:categories $e");
+      brandListcategories.clear();
+    }
   }
 }

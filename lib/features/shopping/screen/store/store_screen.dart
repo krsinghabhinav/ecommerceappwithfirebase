@@ -1,6 +1,7 @@
 import 'package:ecommerceappwithfirebase/controller/brands_controllers.dart';
 import 'package:ecommerceappwithfirebase/controller/category_controller.dart';
 import 'package:ecommerceappwithfirebase/model/brand_model.dart';
+import 'package:ecommerceappwithfirebase/model/category_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ class _StoreScreenState extends State<StoreScreen> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: categoryController.featuredCategories.length,
+
       child: Scaffold(
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -110,7 +112,9 @@ class _StoreScreenState extends State<StoreScreen> {
           body: TabBarView(
             children:
                 categoryController.featuredCategories
-                    .map((category) => CustomCategoryTab())
+                    .map(
+                      (category) => CustomCategoryTab(categoryModel: category),
+                    )
                     .toList(),
           ),
         ),

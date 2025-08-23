@@ -335,4 +335,50 @@ class ProductRepository extends GetxController {
 
     return allProductList;
   }
+
+  Future<List<ProductModel>> getProductsFroCategories({
+    required String categoryId,
+    int limit = -1,
+  }) async {
+    final List<ProductModel> productBrandList = [];
+
+    try {
+      isLoading.value = true;
+
+      final productQuerySnapshot =
+          limit == -1
+              ? await _db
+                  .collection(DatabaseKey.productCategoryCollection)
+                  .where("categoryId", isEqualTo: categoryId)
+                  .get()
+              : await _db
+                  .collection(DatabaseKey.productCategoryCollection)
+                  .where("categoryId", isEqualTo: categoryId)
+                  .limit(limit)
+                  .get();
+      List<String> productId =
+          productQuerySnapshot.docs
+              .map((doc) => doc['productId'] as String)
+              .toList();
+
+      final productQery =
+          await _db
+              .collection(DatabaseKey.productsCollection)
+              .where(FieldPath.documentId, whereIn: productId)
+              .get();
+
+      List<ProductModel> products =
+          productQery.docs
+              .map((doc) => ProductModel.fromSnapshot(doc))
+              .toList();
+      return products;
+    } catch (e, stackTrace) {
+      Utils.showToast("❌ Error fetching featured products");
+      debugPrint("🔥 Firestore error: $e");
+      debugPrint("📌 StackTrace: $stackTrace");
+    } finally {
+      isLoading.value = false;
+    }
+    return productBrandList;
+  }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerceappwithfirebase/model/brand_category_model.dart';
 import 'package:ecommerceappwithfirebase/model/brand_model.dart';
 import 'package:ecommerceappwithfirebase/model/product_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -73,4 +74,90 @@ class BrandRepository extends GetxController {
     return brandList;
   }
 
+  // Future<List<BrandModel>> frtchBrandForCategories(String categoryId) async {
+  //   try {
+  //     final branCategoryQuery =
+  //         await _db
+  //             .collection(DatabaseKey.brandCategoryCollection)
+  //             .where("categoryId", isEqualTo: categoryId)
+  //             .get();
+  //     List<BrandCategoryModel> brandCategories =
+  //         branCategoryQuery.docs
+  //             .map((doc) => BrandCategoryModel.fromSnapshot(doc))
+  //             .toList();
+
+  //     List<String> brandIds =
+  //         brandCategories.map((branCategory) => branCategory.brandId).toList();
+
+  //     final brandQuery =
+  //         await _db
+  //             .collection(DatabaseKey.brandsCollection)
+  //             .where(FieldPath.documentId, whereIn: brandIds)
+  //             .limit(2)
+  //             .get();
+
+  //     List<BrandModel> brans =
+  //         brandQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();
+  //     return brans;
+  //   } catch (e) {
+  //     Utils.showToast("❌ Error fetching brands: $e");
+  //   } finally {
+  //     isLoading.value = false;
+  //   }
+  //   return [];
+  // }
+
+  Future<List<BrandModel>?> frtchBrandForCategories(String categoryId) async {
+    try {
+      // 🔹 Step 1: Get brandCategory documents
+      final branCategoryQuery =
+          await _db
+              .collection(DatabaseKey.brandCategoryCollection)
+              .where("categoryId", isEqualTo: categoryId)
+              .get();
+
+      List<BrandCategoryModel> brandCategories = [];
+      for (int i = 0; i < branCategoryQuery.docs.length; i++) {
+        brandCategories.add(
+          BrandCategoryModel.fromSnapshot(branCategoryQuery.docs[i]),
+        );
+      }
+
+      // 🔹 Step 2: Extract brandIds
+      List<String> brandIds = [];
+      for (int i = 0; i < brandCategories.length; i++) {
+        if (brandCategories[i].brandId.isNotEmpty) {
+          brandIds.add(brandCategories[i].brandId);
+        } else if (brandCategories[i].brandId.isEmpty) {
+          // Agar brandId empty hai toh skip ya koi aur logic
+          continue;
+        }
+      }
+
+      // 🔹 Step 3: Query brands if brandIds available
+      if (brandIds.isNotEmpty) {
+        final brandQuery =
+            await _db
+                .collection(DatabaseKey.brandsCollection)
+                .where(FieldPath.documentId, whereIn: brandIds)
+                .limit(2)
+                .get();
+
+        List<BrandModel> brands = [];
+        for (int i = 0; i < brandQuery.docs.length; i++) {
+          brands.add(BrandModel.fromSnapshot(brandQuery.docs[i]));
+        }
+
+        return brands;
+      } else if (brandIds.isEmpty) {
+        Utils.showToast("⚠️ No brands found for this category");
+        return [];
+      }
+    } catch (e) {
+      Utils.showToast("❌ Error fetching brands: $e");
+    } finally {
+      isLoading.value = false;
+    }
+    return null;
+  }
 }

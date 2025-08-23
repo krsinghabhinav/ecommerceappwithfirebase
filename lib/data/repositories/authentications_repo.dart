@@ -1,5 +1,6 @@
 import 'package:ecommerceappwithfirebase/common/localstoragetext.dart';
 import 'package:ecommerceappwithfirebase/data/repositories/banners/banner_repositry.dart';
+import 'package:ecommerceappwithfirebase/data/repositories/brand_category_repo.dart';
 import 'package:ecommerceappwithfirebase/data/repositories/category/category_respositry.dart';
 import 'package:ecommerceappwithfirebase/features/authentication/auth%20screen/email%20screen/verity_eamil_address.dart';
 import 'package:ecommerceappwithfirebase/utils/dummy_data.dart';
@@ -32,6 +33,12 @@ class AuthenticationsRepoController extends GetxController {
     // // Get.put(BrandRepository()).uploadBrandImage(CustomDummyData.brands);
     // checkAndUploadBrands(); // ✅ fixed
     // Get.put(ProductRepository()).uploadProducts(CustomDummyData.products);
+    // Get.put(
+    //   BrandCategoryRepo(),
+    // ).uploadBrandCategories(CustomDummyData.brandCategory);
+    // Get.put(
+    //   BrandCategoryRepo(),
+    // ).uploadProductCategories(CustomDummyData.productCategory);
     super.onReady();
   }
 

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerceappwithfirebase/model/brand_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,12 @@ import '../store_screen.dart';
 import 'customBrandCard.dart';
 
 class CustomBrandShowCase extends StatelessWidget {
-  const CustomBrandShowCase({super.key, required this.images});
+  BrandModel brandModel;
+  CustomBrandShowCase({
+    super.key,
+    required this.images,
+    required this.brandModel,
+  });
   final List<String> images;
 
   @override
@@ -23,7 +29,7 @@ class CustomBrandShowCase extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            customBrandCard(showBorder: false, brandModel: BrandModel.empty()),
+            customBrandCard(showBorder: false, brandModel: brandModel),
             // ✅ Scrollable row for brand images
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -47,6 +53,12 @@ Widget buildBrandImage(String image) {
     margin: EdgeInsets.only(right: 12, bottom: 5),
     // padding: EdgeInsets.all(8),
     backgroundColor: const Color.fromARGB(66, 199, 199, 199),
-    child: Image(image: AssetImage(image)),
+    child: CachedNetworkImage(
+      imageUrl: image,
+      fit: BoxFit.contain,
+      errorWidget: (context, url, error) {
+        return Icon(Icons.error);
+      },
+    ),
   );
 }
